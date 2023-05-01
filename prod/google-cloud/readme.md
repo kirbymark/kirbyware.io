@@ -1,0 +1,87 @@
+# kirbyware-io Kubernetes cluster
+
+##  Overview
+1. See [Setup](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-an-autopilot-cluster#gcloud_2)
+
+2. Connect to the cluster
+   ```
+   gcloud container clusters get-credentials kirbyware-k8-cluster --region us-east1 --project kirbyware-io-primary-k8
+   ```
+
+3. Descibe the cluster
+   ```
+   gcloud container clusters describe kirbyware-k8-cluster --region us-east1 --project kirbyware-io-primary-k8
+   ```
+
+4. Install helm
+   ```
+   curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
+   chmod 700 get_helm.sh
+   ./get_helm.sh
+   ```
+
+----
+
+## Install cert-manager
+
+1. Install and check it is running
+```
+helm install --create-namespace --namespace cert-manager --set installCRDs=true --set global.leaderElection.namespace=cert-manager cert-manager jetstack/cert-manager
+kubectl -n cert-manager get all
+```
+
+2. remove cert-manager
+```
+helm uninstall --namespace cert-manager cert-manager 
+kubectl -n cert-manager get all
+```
+
+----
+
+## Deploy example app
+
+[Follow this](https://cloud.google.com/kubernetes-engine/docs/deploy-app-cluster)
+
+1. Install
+   ```
+   kubectl create deployment hello-server --image=us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
+   ```
+
+2. Expose
+   ```
+   kubectl expose deployment hello-server --type LoadBalancer --port 80 --target-port 8080
+   ```
+
+3. Check status
+   ```
+   kubectl get pods
+   kubectl get service hello-server
+   ```
+
+----
+
+## Setup Traefik on GKE
+
+[Follow this](https://admintuts.net/server-admin/how-to-deploy-traefik-to-google-kubernetes-engine/)
+
+1. Create namespace for traefik
+
+   ```
+   kubectl create namespace traefik
+   ```
+
+2. Create a Traefik Service Account
+
+   ```
+   Create a Traefik Service Account
+   ```
+
+
+
+---
+
+
+
+## Setup oogle-managed SSL certificates
+
+1. 
