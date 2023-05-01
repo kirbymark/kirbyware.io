@@ -1,5 +1,7 @@
 # kirbyware-io Kubernetes cluster
 
+## [Dashboard](https://console.cloud.google.com/home/dashboard?project=kirbyware-io-primary-k8&walkthrough_id=assistant_webhosting_index)
+
 ##  Overview
 1. See [Setup](https://cloud.google.com/kubernetes-engine/docs/how-to/creating-an-autopilot-cluster#gcloud_2)
 
@@ -13,30 +15,22 @@
    gcloud container clusters describe kirbyware-k8-cluster --region us-east1 --project kirbyware-io-primary-k8
    ```
 
-4. Install helm
+4.  Cleanup the cluster
+   ```
+   gcloud container clusters delete kirbyware-k8-cluster  --region us-east1
+   ```
+
+----
+
+## Install helm
+1. Install helm
    ```
    curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3
    chmod 700 get_helm.sh
    ./get_helm.sh
    ```
 
-----
-
-## Install cert-manager
-
-1. Install and check it is running
-```
-helm install --create-namespace --namespace cert-manager --set installCRDs=true --set global.leaderElection.namespace=cert-manager cert-manager jetstack/cert-manager
-kubectl -n cert-manager get all
-```
-
-2. remove cert-manager
-```
-helm uninstall --namespace cert-manager cert-manager 
-kubectl -n cert-manager get all
-```
-
-----
+---
 
 ## Deploy example app
 
@@ -58,6 +52,16 @@ kubectl -n cert-manager get all
    kubectl get service hello-server
    ```
 
+
+---
+
+## Setup Google-managed SSL certificates
+[Follow this](https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs)
+
+1. 
+
+
+
 ----
 
 ## Setup Traefik on GKE
@@ -65,23 +69,56 @@ kubectl -n cert-manager get all
 [Follow this](https://admintuts.net/server-admin/how-to-deploy-traefik-to-google-kubernetes-engine/)
 
 1. Create namespace for traefik
-
    ```
    kubectl create namespace traefik
    ```
 
 2. Create a Traefik Service Account
-
    ```
-   Create a Traefik Service Account
+   kubectl apply -f ./prod/google-cloud/1-traefik/service-account.yaml
    ```
 
 
+3. Create a Cluster Role and Cluster Role Binding
+   ```
+   kubectl apply -f ./prod/google-cloud/1-traefik/cluster-role-binding.yaml
+   ```
 
----
+4. Create a ConfigMap
+   ```
+   kubectl apply -f ./prod/google-cloud/1-traefik/traefik-config.yaml
+   ```
+
+5. Create a Traefik Deployment
+   ```
+   kubectl apply -f ./prod/google-cloud/1-traefik/traefik-deployment.yaml
+   ```
 
 
+6. Create a Traefik Service
+   ```
+   kubectl apply -f ./prod/google-cloud/1-traefik/traefik-service.yaml
+   ```
 
-## Setup oogle-managed SSL certificates
+7. Verify the Traefik Deployment
+   ```
+   kubectl get pods -n traefik
+   kubectl describe pod -n traefik-deployment-6f7d5c4787-7pcd7
+   
+----
 
-1. 
+## Install cert-manager
+
+1. Install and check it is running
+```
+helm install --create-namespace --namespace cert-manager --set installCRDs=true --set global.leaderElection.namespace=cert-manager cert-manager jetstack/cert-manager
+kubectl -n cert-manager get all
+```
+
+2. remove cert-manager
+```
+helm uninstall --namespace cert-manager cert-manager 
+kubectl -n cert-manager get all
+```
+
+----
