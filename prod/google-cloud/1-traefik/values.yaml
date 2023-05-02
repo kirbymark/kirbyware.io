@@ -1,0 +1,30 @@
+ingressClass:
+  enabled: true
+  isDefaultClass: false
+
+additionalArguments:
+  - "--providers.kubernetesingress.ingressclass=traefik"
+  - "--ping"
+
+providers:
+  kubernetesCRD:
+    enabled: true
+
+ports:
+  web:
+    port: 8000
+    expose: true
+    exposedPort: 80
+    protocol: TCP
+    nodePort: 32080
+
+  websecure:
+    port: 8443
+    expose: true
+    exposedPort: 443
+    protocol: TCP
+    nodePort: 32443
+
+service:
+  enabled: true
+  type: NodePort

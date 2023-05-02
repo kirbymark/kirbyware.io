@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: catch-all-ingress
+  namespace: traefik-system
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: "cloud-aromor-traefik-addr"
+spec:
+  defaultBackend:
+    service:
+      name: traefik
+      port:
+        number: 80
