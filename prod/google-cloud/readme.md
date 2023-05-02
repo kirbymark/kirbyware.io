@@ -7,22 +7,22 @@
 
 1. create the cluster
    ```
-   gcloud container clusters create-auto kirbyware-k8-cluster --region us-east1 --project=kirbyware-io-primary-k8
+   gcloud container clusters create-auto kw-01 --region us-east1 --project=kirbyware-io-primary-k8
    ```
 
 2. Connect to the cluster
    ```
-   gcloud container clusters get-credentials kirbyware-k8-cluster --region us-east1 --project=kirbyware-io-primary-k8
+   gcloud container clusters get-credentials kw-01 --region us-east1 --project=kirbyware-io-primary-k8
    ```
 
 3. Descibe the cluster
    ```
-   gcloud container clusters describe kirbyware-k8-cluster --region us-east1
+   gcloud container clusters describe kw-01 --region us-east1
    ```
 
 4.  Cleanup the cluster
    ```
-   gcloud container clusters delete kirbyware-k8-cluster  --region us-east1
+   gcloud container clusters delete kw-01  --region us-east1
    ```
 
 ----
@@ -45,26 +45,101 @@
    ```
    kubectl create deployment hello-server --image=us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
    ```
-
-2. Expose
-   ```
-   kubectl expose deployment hello-server --type LoadBalancer --port 80 --target-port 8080
-   ```
-
-3. Check status
-   ```
-   kubectl get pods
-   kubectl get service hello-server
-   ```
-
-
 ---
+
 
 ## Setup Google-managed SSL certificates
 [Follow this](https://cloud.google.com/kubernetes-engine/docs/how-to/managed-certs)
 
-1. 
+1. Create reserved IP address
+   ```
+   gcloud compute addresses create kw-gke-ip-addr --global
+   ```
 
+2. Display the address
+   ```
+   gcloud compute addresses describe kw-gke-ip-addr --global
+   ```
+
+3. Apply the managed certificate object
+   ```
+   kubectl apply -f ./prod/google-cloud/2-google-manged-ssl/managed-cert.yaml
+   ```
+
+4. Create and Apply a NodePort Service
+   ```
+   kubectl apply -f ./prod/google-cloud/2-google-manged-ssl/nodeport.yaml
+   ```
+
+5. Apply the Ingress
+   ```
+   kubectl apply -f ./prod/google-cloud/2-google-manged-ssl/managed-cert-ingress.yaml
+   ```
+
+6. Check the Status of the Pod, Ingress and the managed cert
+   ```
+   kubectl get pods
+   kubectl get ingress
+   kubectl get service
+   kubectl describe managedcertificate managed-cert
+   ```
+
+7. delete 
+   ```
+   kubectl delete -f ./prod/google-cloud/2-google-manged-ssl/managed-cert.yaml
+   kubectl annotate ingress managed-cert-ingress networking.gke.io/managed-certificates-
+   ```
+
+----
+## Setup Dashy 
+
+1. Create PVC and deployment
+   ```
+   kubectl apply -f ./prod/google-cloud/3-dashy-app/dashy-setup-manifest.yaml
+   ```
+
+2. Check the Status of the Pod
+   ```
+   kubectl get pods
+   ```
+3. Create and Apply a NodePort Service
+   ```
+   kubectl apply -f ./prod/google-cloud/3-dashy-app/nodeport.yaml
+   ```
+
+4. Apply the modified Ingress
+   ```
+   kubectl apply -f ./prod/google-cloud/3-dashy-app/managed-cert-ingress-dashy.yaml
+   ```
+
+5. Check the Status of the Pod
+   ```
+   kubectl get pods
+   ```
+
+6. This is for troubleshooting only - Check via direct loadbalancer
+   ```
+   kubectl expose deployment dashy --type LoadBalancer --port 80 --target-port 8080
+   ```
+
+7. I had to create a config file within the PVC
+   ```
+   kubectl exec -it dashy-5f7bbcf7c8-7l9k7 /bin/sh   
+   ```
+
+8. Copying in some icons
+   ```
+   tar cf - ./synology.png | kubectl exec -i dashy-5f7bbcf7c8-7l9k7 -- tar xf - -C /app/public/item-icons
+   tar cf - ./xoa-transparent.png | kubectl exec -i dashy-5f7bbcf7c8-7l9k7 -- tar xf - -C /app/public/item-icons  
+   ```
+   
+
+
+# for now am only using Google Managed SSL - Perhaps in the future will explore cert-manager and Traefik
+
+----
+## Setup cert-manager
+https://cert-manager.io/docs/tutorials/getting-started-with-cert-manager-on-google-kubernetes-engine-using-lets-encrypt-for-ingress-ssl/
 
 
 ----

@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: managed-cert-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: kw-gke-ip-addr
+    networking.gke.io/managed-certificates: managed-cert
+    kubernetes.io/ingress.class: "gce"
+spec:
+  defaultBackend:
+    service:
+      name: dashy-nodeport
+      port:
+        number: 80
+# spec:
+#   rules:
+#     - host: dashboard.kirbyware.io
+#       http:
+#         paths:
+#           - path: /
+#             backend:
+#               serviceName: hello-server-nodeport
+#               servicePort: hello-server-port
