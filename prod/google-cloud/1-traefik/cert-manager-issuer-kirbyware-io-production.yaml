@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: cloudflare-production
+  namespace: traefik
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: mark@kirbyware.io
+    privateKeySecretRef:
+      name: cloudflare-key-production
+    solvers:
+      - dns01:
+          cloudflare:
+            email: mark@kirbyware.com
+            apiTokenSecretRef:
+              name: cloudflare-dns-edit-key
+              key: api-token

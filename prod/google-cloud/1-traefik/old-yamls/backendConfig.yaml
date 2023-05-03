@@ -2,7 +2,7 @@ apiVersion: cloud.google.com/v1
 kind: BackendConfig
 metadata:
   name: backendconfig-armor-rule-1
-  namespace: traefik
+  namespace: traefik-system
 spec:
   securityPolicy:
     name: "armor-rule-1"

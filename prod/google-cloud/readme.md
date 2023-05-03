@@ -1,13 +1,17 @@
-# kirbyware-io Kubernetes cluster
+# Setup kirbyware-io GCP Environment 
+The GCP Cloud environment [Dashboard](https://console.cloud.google.com/home/dashboard?project=kirbyware-io-primary-k8&walkthrough_id=assistant_webhosting_index)
 
-## [Dashboard](https://console.cloud.google.com/home/dashboard?project=kirbyware-io-primary-k8&walkthrough_id=assistant_webhosting_index)
-## [Setup Environment](./setup-environment.md)
-## [Setup Cluster](./setup-cluster.md)
-## [Setup Google Managed SSL Certs](./setup-google-ssl.md)
+## Steps to Create
+1. [Setup Environment](./docs/1-setup-environment.md)
+2. [Setup Cluster](./docs/2-setup-cluster.md)
+3. [Setup Cert-manager](./docs/3-setup-cert-manager.md)
+4. [Setup Traefik](./docs/4-setup-traefik.md)
+5. [Test Setup with whoami](./docs/5-setup-whoami-test.md)
 
-## [Setup Traefix for GKE Ingress](./setup-traefik.md)
 
+x. Optional - [Setup Google Managed SSL Certs](./docs/setup-google-ssl.md)
 
+---
 ## Deploy example app
 
 [Follow this](https://cloud.google.com/kubernetes-engine/docs/deploy-app-cluster)
@@ -16,10 +20,8 @@
    ```
    kubectl create deployment hello-server --image=us-docker.pkg.dev/google-samples/containers/gke/hello-app:1.0
    ```
+
 ---
-
-
-----
 ## Setup Dashy 
 
 1. Create PVC and deployment

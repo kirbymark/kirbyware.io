@@ -7,20 +7,20 @@
 
 1. create the cluster
    ```
-   gcloud container clusters create-auto kw-01 --region us-east1 --project=kirbyware-io-primary-k8
+   gcloud container clusters create-auto kw-03 --region us-east1 --project=kirbyware-io-primary-k8
    ```
 
 2. Connect to the cluster
    ```
-   gcloud container clusters get-credentials kw-01 --region us-east1 --project=kirbyware-io-primary-k8
+   gcloud container clusters get-credentials kw-03 --region us-east1 --project=kirbyware-io-primary-k8
    ```
 
 3. Descibe the cluster
    ```
-   gcloud container clusters describe kw-01 --region us-east1
+   gcloud container clusters describe kw-03 --region us-east1
    ```
 
 4.  Cleanup the cluster
    ```
-   gcloud container clusters delete kw-01  --region us-east1
+   gcloud container clusters delete kw-03 --region us-east1
    ```

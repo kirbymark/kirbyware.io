@@ -1,23 +1,3 @@
-## Setup Traefik on GKE
-
-[Follow this](https://admintuts.net/server-admin/how-to-deploy-traefik-to-google-kubernetes-engine/)
-
-1. Create namespace for traefik
-   ```
-   kubectl create namespace traefik-system
-   ```
-
-2. Install Traefik via Helm
-   ```
-   helm repo add traefik https://helm.traefik.io/traefik && helm repo update
-   helm install traefik traefik/traefik -f ./prod/google-cloud/1-traefik/values.yaml --namespace=traefik-system
-
-   ```
-
-3. Create Static Global IP address
-   ```
-   gcloud compute addresses create cloud-aromor-traefik-addr --global
-   ```
 
 4. Apply the catch-all Ingress
    ```
@@ -27,7 +7,7 @@
 
 5. Apply the healthcheck Ingress
    ```
-   kubectl apply -f ./prod/google-cloud/1-traefik/healthcheck-ingress.yaml --namespace=traefik-system
+   kubectl apply -f ./prod/google-cloud/1-traefik/healthcheck-ingress.yaml
    gcloud compute health-checks update http --request-path "/healthcheck" k8s1-48993332-traefik-system-traefik-80-7479dc8a
    ```
    Note you can get the name of the LoadBalancer from 
@@ -48,6 +28,7 @@
   "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"networking.k8s.io/v1\",\"kind\":\"Ingress\",\"metadata\":{\"annotations\":{\"kubernetes.io/ingress.global-static-ip-name\":\"cloud-aromor-traefik-addr\"},\"name\":\"catch-all-ingress\",\"namespace\":\"traefik-system\"},\"spec\":{\"defaultBackend\":{\"service\":{\"name\":\"traefik\",\"port\":{\"number\":80}}}}}\n",
   "kubernetes.io/ingress.global-static-ip-name": "cloud-aromor-traefik-addr"
 }
+
 
 
 7. Apply basic Cloud Armor Policy
@@ -75,21 +56,9 @@
    kubectl apply -f ./prod/google-cloud/1-traefik/test-whoami-ingress.yaml
    ```
    
+
+10. Create the default headers   NOTE:  HAVE NOT RUN THIS YET
+   ```
+   kubectl apply -f ./prod/google-cloud/1-traefik/default-headers.yaml
+   ```
    
-----
-
-## Install cert-manager
-
-1. Install and check it is running
-```
-helm install --create-namespace --namespace cert-manager --set installCRDs=true --set global.leaderElection.namespace=cert-manager cert-manager jetstack/cert-manager
-kubectl -n cert-manager get all
-```
-
-2. remove cert-manager
-```
-helm uninstall --namespace cert-manager cert-manager 
-kubectl -n cert-manager get all
-```
-
-----

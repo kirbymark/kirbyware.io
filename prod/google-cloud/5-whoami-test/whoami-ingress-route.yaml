@@ -1,0 +1,17 @@
+apiVersion: traefik.io/v1alpha1
+kind: IngressRoute
+metadata:
+  name: kirbyware-io-whoami-test-tls
+  namespace: whoami
+spec:
+  entryPoints:
+    - websecure
+  routes:
+  - match: Host(`test.kirbyware.io`)
+    kind: Rule
+    services:
+    - name: whoami-test
+      namespace: whoami
+      port: 80
+
+
