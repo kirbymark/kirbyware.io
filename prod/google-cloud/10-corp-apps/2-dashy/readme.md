@@ -1,13 +1,9 @@
-## Setup Corp Apps
-
-0. Create namespace for traefik
-   ```
-   kubectl create namespace corp-apps
+## Setup Dashy
    ```
 
-1. Create PVC and deployment - [manifest](../10-app-dashy/dashy-setup-manifest.yaml)
+1. Create PVC and deployment - [manifest](./dashy-setup-manifest.yaml)
    ```
-   kubectl apply -f ./prod/google-cloud/10-app-dashy/dashy-setup-manifest.yaml
+   kubectl apply -f ./prod/google-cloud/10-corp-apps/2-dashy/dashy-setup-manifest.yaml
    ```
 
 2. Check the Status of the Pod
@@ -15,29 +11,14 @@
    kubectl get pods -n corp-apps
    ```
 
-3. Create and Apply service - [manifest](../10-app-dashy/dashy-service.yaml)
+3. Create and Apply service - [manifest](./dashy-service.yaml))
    ```
-   kubectl apply -f ./prod/google-cloud/10-app-dashy/dashy-service.yaml
-   ```
-
-4. Add athentication secret - [manifest](../10-app-dashy/basicauth-secret.yaml)
-   first create secret with htpass
-   ```
-   htpasswd -nb kirbymark password | openssl base64
-   ```
-   then apply 
-   ```
-   kubectl apply -f ./prod/google-cloud/10-app-dashy/basicauth-secret.yaml
+   kubectl apply -f ./prod/google-cloud/10-corp-apps/2-dashy/dashy-service.yaml
    ```
 
-5. Apply Middleware - [manifest](../10-app-dashy/auth-middleware.yaml)
+4. Apply IngressRoute - [manifest](./dashy-ingress-route-tls.yaml)
    ```
-   kubectl apply -f ./prod/google-cloud/10-app-dashy/auth-middleware.yaml
-   ```
-
-6. Apply IngressRoute - [manifest](../10-app-dashy/dashy-ingress-route-tls.yaml)
-   ```
-   kubectl apply -f ./prod/google-cloud/10-app-dashy/dashy-ingress-tls.yaml
+   kubectl apply -f ./prod/google-cloud/10-corp-apps/2-dashy/dashy-ingress-route-tls.yaml
    ```
 
 7. Check the Status of the Pod
@@ -47,12 +28,13 @@
 
 8. Copy the config into pod  - [config](../10-app-dashy/dashy_conf.yml) 
    ```
-   kubectl cp ./prod/google-cloud/10-app-dashy/dashy_conf.yml apps/dashy-76f65bbd4f-2pvg5:/app/public/conf.yml
+   kubectl cp ./prod/google-cloud/10-corp-apps/2-dashy/dashy_conf.yml dashy-5f7bbcf7c8-wn26v:/app/public/conf.yml -n corp-apps
    ```
+    
 
 9. Copying in other resources
    ```
-   tar -C ./prod/google-cloud/10-app-dashy -cvf - ./item-icons/ | kubectl exec -i -n apps dashy-76f65bbd4f-2pvg5 -- tar xf - -C /app/public/ 
+   tar -C ./prod/google-cloud/10-corp-apps/2-dashy/ -cvf - ./item-icons/ | kubectl exec -i -n corp-apps dashy-5f7bbcf7c8-wn26v -- tar xf - -C /app/public/
    ```
 
 10. Then restart the deployment

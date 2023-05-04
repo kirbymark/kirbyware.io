@@ -27,7 +27,7 @@ spec:
   entryPoints:
     - websecure
   routes:
-    - match: Host(`us.kirbyware.io`)
+    - match: Host(`traefik.kirbyware.io`)
       kind: Rule
       middlewares:
         - name: traefik-middleware-basicauth
