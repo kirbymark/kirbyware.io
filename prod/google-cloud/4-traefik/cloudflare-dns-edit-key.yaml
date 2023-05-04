@@ -1,0 +1,9 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: cloudflare-dns-edit-key
+  namespace: traefik
+type: Opaque
+stringData:
+  api-token: 0mzq7b5EqpV2zs9Zd-zfn5zo9jfIM6yPv6W46Mmt

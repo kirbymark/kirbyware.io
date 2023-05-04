@@ -1,8 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: whoami-tls
-  namespace: whoami
+  name: whoami-https-tls
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
 spec:
@@ -15,6 +14,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: whoami
+                name: whoamiv1
                 port:
                   number: 80

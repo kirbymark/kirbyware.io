@@ -1,0 +1,74 @@
+deployment:
+  replicas: null
+resources:
+  requests:
+    cpu: "100m"
+    memory: "50Mi"
+  limits:
+    cpu: "300m"
+    memory: "150Mi"
+autoscaling:
+  enabled: true
+  maxReplicas: 2
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+
+ingressClass:
+  enabled: true
+  isDefaultClass: false
+
+additionalArguments:
+  - "--providers.kubernetesingress.ingressclass=traefik"
+  - "--ping"
+
+providers:
+  kubernetesCRD:
+    enabled: true
+
+ports:
+  web:
+    port: 8000
+    expose: true
+    exposedPort: 80
+    protocol: TCP
+    nodePort: 32080
+
+  websecure:
+    port: 8443
+    expose: true
+    exposedPort: 443
+    protocol: TCP
+    nodePort: 32443
+
+tlsStore:
+  default:
+    defaultCertificate:
+      secretName: wildcard-kirbyware-io-production-tls
+
+service:
+  enabled: true
+  type: LoadBalancer
+  spec: 
+    loadBalancerIP: "35.237.244.245"
+extraObjects:
+  - apiVersion: networking.k8s.io/v1
+    kind: Ingress
+    metadata:
+      name: traefik
+      annotations:
+        kubernetes.io/ingress.global-static-ip-name: "kw-05-traefik-ip"
+    spec:
+      defaultBackend:
+        service:
+          name: traefik
+          port:
+            number: 80
+
+ingressRoute:
+  dashboard:
+    enabled: true
