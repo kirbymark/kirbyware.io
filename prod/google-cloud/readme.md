@@ -9,5 +9,14 @@ The GCP Cloud environment [Dashboard](https://console.cloud.google.com/home/dash
 5. [Test Setup with whoami](./docs/5-setup-whoami-test.md)
 
 ---
+## Steps to Corp Apps
+10. Create namespace for traefik
+   ```
+   kubectl create namespace corp-apps
+   ```
+
+11. [Setup Dashy](./docs/10-setup-corp-app-dashy.md)
+
+
 
 For old notes [see here](../../old/google-cloud/readme.md)
