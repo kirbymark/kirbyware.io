@@ -1,22 +1,23 @@
 ## Setup Dashy 
 
-1. Create PVC and deployment
+1. Create PVC and deployment - [manifest](../10-app-dashy/dashy-setup-manifest.yaml)
    ```
-   kubectl apply -f ./prod/google-cloud/3-dashy-app/dashy-setup-manifest.yaml
+   kubectl apply -f ./prod/google-cloud/10-app-dashy/dashy-setup-manifest.yaml
    ```
 
 2. Check the Status of the Pod
    ```
-   kubectl get pods
-   ```
-3. Create and Apply a NodePort Service
-   ```
-   kubectl apply -f ./prod/google-cloud/3-dashy-app/nodeport.yaml
+   kubectl get pods -n apps
    ```
 
-4. Apply the modified Ingress
+3. Create and Apply service - [manifest](../10-app-dashy/dashy-service.yaml)
    ```
-   kubectl apply -f ./prod/google-cloud/3-dashy-app/managed-cert-ingress-dashy.yaml
+   kubectl apply -f ./prod/google-cloud/10-app-dashy/dashy-service.yaml
+   ```
+
+4. Apply Ingress - [manifest](../10-app-dashy/dashy-ingress-tls.yaml)
+   ```
+   kubectl apply -f ./prod/google-cloud/10-app-dashy/dashy-ingress-tls.yaml
    ```
 
 5. Check the Status of the Pod
@@ -24,6 +25,8 @@
    kubectl get pods
    ```
 
+
+---
 6. This is for troubleshooting only - Check via direct loadbalancer
    ```
    kubectl expose deployment dashy --type LoadBalancer --port 80 --target-port 8080
