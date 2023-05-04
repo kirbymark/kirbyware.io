@@ -10,12 +10,7 @@ The GCP Cloud environment [Dashboard](https://console.cloud.google.com/home/dash
 
 ---
 ## Steps to Corp Apps
-10. Create namespace for traefik
-   ```
-   kubectl create namespace corp-apps
-   ```
-
-11. [Setup Dashy](./docs/10-setup-corp-app-dashy.md)
+10. [Setup Corp Apps](./docs/10-setup-corp-apps.md)
 
 
 

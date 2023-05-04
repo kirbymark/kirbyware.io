@@ -1,4 +1,9 @@
-## Setup Dashy 
+## Setup Corp Apps
+
+0. Create namespace for traefik
+   ```
+   kubectl create namespace corp-apps
+   ```
 
 1. Create PVC and deployment - [manifest](../10-app-dashy/dashy-setup-manifest.yaml)
    ```
@@ -7,7 +12,7 @@
 
 2. Check the Status of the Pod
    ```
-   kubectl get pods -n apps
+   kubectl get pods -n corp-apps
    ```
 
 3. Create and Apply service - [manifest](../10-app-dashy/dashy-service.yaml)

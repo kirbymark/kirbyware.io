@@ -2,7 +2,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: dashy-tls
-  namespace: apps
+  namespace: corp-apps
   annotations: 
     kubernetes.io/ingress.class: traefik
 spec:
@@ -13,11 +13,11 @@ spec:
       kind: Rule
       middlewares:
         - name: traefik-middleware-basicauth
-          namespace: apps
+          namespace: corp-apps
       services:    
       - kind: Service
         name: dashy
-        namespace: apps
+        namespace: corp-apps
         port: 80
   tls:
     secretName: wildcard-kirbyware-io-production-tls
