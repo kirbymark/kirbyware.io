@@ -1,0 +1,22 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  name: dashy-tls
+  namespace: corp-apps
+spec:
+  entryPoints:
+  - websecure
+  routes:
+  - kind: Rule
+    match: Host(`dashy.kirbyware.io`)
+    middlewares:
+    - name: traefik-forward-auth
+    services:
+    - kind: Service
+      name: dashy
+      namespace: corp-apps
+      port: 80
+  tls:
+    secretName: wildcard-kirbyware-io-production-tls

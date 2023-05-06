@@ -41,7 +41,19 @@
    ```
    kubectl rollout restart deployment dashy -n apps
    ```
-   
+
+11. Setup Authentication Forwarder for Dashy
+   ```
+   kubectl apply -f ./prod/google-cloud/10-corp-apps/2-dashy/google-auth-secret.yaml
+   kubectl apply -f ./prod/google-cloud/10-corp-apps/2-dashy/traefik-forward-auth-deployment.yaml
+   ```
+
+
+11. Change the IngressROute for Dashy to use Google SSO
+   ```
+   kubectl apply -f ./prod/google-cloud/10-corp-apps/2-dashy/dashy-ingress-route-tls-sso.yaml
+   ```
+
 ---
 Notes:
 - This is for troubleshooting only - Check via direct loadbalancer
@@ -54,7 +66,4 @@ Notes:
    ```
    kubectl apply -f ./prod/google-cloud/10-app-dashy/dashy-ingress-tls.yaml
    ```
-
-
----
 
