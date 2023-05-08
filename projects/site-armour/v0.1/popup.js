@@ -1,0 +1,11 @@
+  const body = document.getElementsByTagName("body")[0];
+  const newBorder = document.createElement("div");
+  newBorder.style.border = `5px solid red`;
+  newBorder.style.boxSizing = "border-box";
+  newBorder.style.width = "100%";
+  newBorder.style.height = "100%";
+  newBorder.style.position = "absolute";
+  newBorder.style.top = "0";
+  newBorder.style.left = "0";
+  newBorder.style.zIndex = "9999";
+  body.appendChild(newBorder);

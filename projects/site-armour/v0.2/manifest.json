@@ -1,0 +1,11 @@
+{
+    "name": "kirbyware.io Page Border",
+    "version": "0.2",
+    "manifest_version": 3,
+    "content_scripts": [
+      {
+        "matches": ["https://www.cnn.com/*"],
+        "js": ["content.js"]
+      }
+    ]
+  }

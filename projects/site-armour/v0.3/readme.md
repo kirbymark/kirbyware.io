@@ -1,0 +1,3 @@
+Consolidated prompt.
+
+write a chrome extension that inserts a new red 10pixel border around a webpage automatically once the page has loaded. the new border should always be visible top of other page elements and the boarder should flash 10 times per second. The extension should pass the name of the currently loaded website url to a backend service and only add the new border if the  backend service returns a flag of true
