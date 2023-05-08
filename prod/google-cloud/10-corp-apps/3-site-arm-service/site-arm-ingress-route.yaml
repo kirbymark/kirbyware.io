@@ -1,0 +1,20 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: site-arm-backend
+  namespace: corp-apps
+  annotations: 
+    kubernetes.io/ingress.class: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`site-arm-be.kirbyware.io`) 
+      kind: Rule
+      services:    
+      - kind: Service
+        name: site-arm-backend
+        namespace: corp-apps
+        port: 80
+  tls:
+    secretName: wildcard-kirbyware-io-production-tls
