@@ -15,13 +15,14 @@ app.get('/', (req, res) => {
 
 app.get('/status/:url', (req, res) => {
   const url = req.params.url;
-  console.log("url is: " + url); 
-  
+  console.log("Recived request for url: " + url); 
+    
   const result = resultArray.find(obj => obj.key === url);
   const status = result ? result.value : "not-found";
-  console.log(status); 
+  console.log("Result is: " + status); 
 
-  res.send(`Status for URL '${url}': ${status}`);
+  // res.send(`url:${url},nod.status: ${status}`);
+  res.json({ url: url, status: status });
 });
 
 app.listen(3000, () => {
