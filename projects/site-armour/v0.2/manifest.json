@@ -1,7 +1,16 @@
 {
     "name": "kirbyware.io Page Border",
-    "version": "0.23",
+    "version": "0.28",
     "manifest_version": 3,
+    "background": {
+      "service_worker": "background.js"
+    },
+    "permissions": [
+      "webNavigation"
+    ],
+    "host_permissions": [
+      "https://site-arm-be.kirbyware.io/*"
+    ],
     "content_scripts": [
       {
         "matches": ["https://www.cnn.com/*","https://www.verizon.com/*"], // "matches": ["*://*/*"],

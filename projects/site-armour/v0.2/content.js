@@ -10,12 +10,24 @@ function addBorder() {
     newBorder.style.left = "0";
     newBorder.style.zIndex = "9999999";
     body.appendChild(newBorder);
+
+    const currentUrl = window.location.href;
+    console.log('Current URL: ' + currentUrl); 
+    chrome.runtime.sendMessage({ type: "fetchStatus", url: currentUrl }, function(
+      response
+    ) {
+      if (response && response.status === "up") {
+        console.log("Backend is up!");
+      } else {
+        console.log("Backend is down!");
+      }
+    });
   
     let visible = true;
     setInterval(() => {
       newBorder.style.display = visible ? "none" : "block";
       visible = !visible;
-    }, 100); // toggle every half second
+    }, 100); 
   }
   
   window.addEventListener("load", addBorder);
