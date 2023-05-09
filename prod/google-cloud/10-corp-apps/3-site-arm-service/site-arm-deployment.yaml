@@ -22,8 +22,9 @@ spec:
     spec:
       terminationGracePeriodSeconds: 60
       containers:
-      - image: us-east1-docker.pkg.dev/kirbyware-io-primary-k8/kirbyware-io-docker-store/site-arm:latest
+      - image: us-east1-docker.pkg.dev/kirbyware-io-primary-k8/kirbyware-io-docker-store/site-arm:v2
         name: site-arm
+        imagePullPolicy: Always
         ports:
         - containerPort: 3000
           protocol: TCP

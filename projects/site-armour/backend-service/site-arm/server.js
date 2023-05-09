@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const resultArray = [
-  { key: "cnn.com", value: "good" },
+  { key: "https://www.cnn.com/", value: "good" },
   { key: "verizon.com", value: "bad" },
   { key: "epsn.com", value: "unknown" },
   { key: "www.drudgereport.com", value: "bad" },

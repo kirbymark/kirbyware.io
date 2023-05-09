@@ -94,13 +94,14 @@ function addBorder() {
 
     const currentUrl = window.location.href;
     console.log('Current URL: ' + currentUrl); 
-    chrome.runtime.sendMessage({ type: "fetchStatus", url: currentUrl }, function(
-      response
-    ) {
-      if (response && response.status === "up") {
-        console.log("Backend is up!");
+    chrome.runtime.sendMessage({ name: "fetchStatus", url: currentUrl }, (response) => {
+      //wait for Response
+      console.log("Waiting for response");
+      
+      if (response && response.status === "good") {
+        console.log("Backend is good!");
       } else {
-        console.log("Backend is down!");
+        console.log("Backend is not good!");
       }
     });
   

@@ -1,6 +1,6 @@
 {
     "name": "kirbyware.io Page Border",
-    "version": "0.28",
+    "version": "0.31",
     "manifest_version": 3,
     "background": {
       "service_worker": "background.js"
