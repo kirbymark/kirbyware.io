@@ -212,11 +212,13 @@ sections:
         id: 0_1488_traefik
       - title: Cloud Console
         description: Google Cloud Console
-        icon: http://f1.allesedv.com/16/google.com
+        icon: ':cloud:'
         url: https://console.cloud.google.com/
         target: newtab
         id: 1_1488_cloudconsole
       - title: looker studio
+        description: Google Looker Studio
+        icon: ':bar_chart:'
         url: >-
           https://lookerstudio.google.com/reporting/844ea9d9-0ab5-4056-98b6-f900ec233850/page/p_31jgaxtw5c
         id: 2_1488_lookerstudio
