@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dashy-pvc
+  namespace: corp-apps
+  labels:
+    app: dashy
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      # storage: 512Mi
+      storage: 40Gi
+  storageClassName: vultr-block-storage-hdd

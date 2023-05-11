@@ -1,0 +1,33 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: dashy
+  namespace: corp-apps
+  labels:
+    app: dashy
+spec:
+  replicas: 1
+  progressDeadlineSeconds: 600
+  revisionHistoryLimit: 3
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: dashy
+  template:
+    metadata:
+      labels:
+        app: dashy
+    spec:
+      containers:
+      - name: dashy
+        image: lissy93/dashy:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: dashy-persistent-storage
+          mountPath: /app/public/
+      volumes:
+      - name: dashy-persistent-storage
+        persistentVolumeClaim:
+          claimName: dashy-pvc

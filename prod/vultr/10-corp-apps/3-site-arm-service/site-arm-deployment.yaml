@@ -1,0 +1,53 @@
+#
+# Traefik Forward Auth Deployment
+#
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: site-arm-backend
+  namespace: corp-apps
+  labels:
+    app: site-arm-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: site-arm-backend
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: site-arm-backend
+    spec:
+      terminationGracePeriodSeconds: 60
+      containers:
+      - image: us-east1-docker.pkg.dev/kirbyware-io-primary-k8/kirbyware-io-docker-store/site-arm:v2
+        name: site-arm
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          protocol: TCP
+        env:
+        - name: DOMAIN
+          value: "kirbyware.io"
+           # Mark added
+---
+#
+# Service
+#
+apiVersion: v1
+kind: Service
+metadata:
+  name: site-arm-backend
+  namespace: corp-apps
+  labels:
+    app: site-arm-backend
+spec:
+  type: ClusterIP
+  selector:
+    app: site-arm-backend
+  ports:
+  - name: http
+    port: 80
+    targetPort: 3000

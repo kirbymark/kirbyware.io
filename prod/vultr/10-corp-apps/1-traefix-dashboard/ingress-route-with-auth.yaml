@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: traefik-basicauth
+  namespace: corp-apps
+type: Opaque
+data:
+  users: a2lyYnltYXJrOiRhcHIxJHAxT01KTko3JG90ekJac0lPdTMuQlBXQTVvSTFlZTEKCg==
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: Middleware
+metadata:
+  name: traefik-middleware-basicauth
+  namespace: corp-apps
+spec:
+  basicAuth:
+    secret: traefik-basicauth
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: traefik-tls
+  namespace: corp-apps
+  annotations: 
+    kubernetes.io/ingress.class: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`traefik.kirbyware.io`)
+      kind: Rule
+      middlewares:
+        - name: traefik-middleware-basicauth
+          namespace: corp-apps
+      services:
+        - name: api@internal
+          kind: TraefikService
+  tls:
+    secretName: wildcard-kirbyware-io-production-tls
