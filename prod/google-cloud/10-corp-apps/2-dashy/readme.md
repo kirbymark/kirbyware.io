@@ -23,23 +23,23 @@
 
 7. Check the Status of the Pod
    ```
-   kubectl get pods -n apps
+   kubectl get pods -n corp-apps
    ```
 
 8. Copy the config into pod  - [config](../10-app-dashy/dashy_conf.yml) 
    ```
-   kubectl cp ./prod/google-cloud/10-corp-apps/2-dashy/dashy_conf.yml dashy-5f7bbcf7c8-wn26v:/app/public/conf.yml -n corp-apps
+   kubectl cp ./prod/google-cloud/10-corp-apps/2-dashy/dashy_conf.yml $(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n corp-apps | grep dashy ):/app/public/conf.yml -n corp-apps
    ```
     
 
 9. Copying in other resources
    ```
-   tar -C ./prod/google-cloud/10-corp-apps/2-dashy/ -cvf - ./item-icons/ | kubectl exec -i -n corp-apps dashy-5f7bbcf7c8-wn26v -- tar xf - -C /app/public/
+   tar -C ./prod/google-cloud/10-corp-apps/2-dashy/ -cvf - ./item-icons/ | kubectl exec -i -n corp-apps $(kubectl get pods --no-headers -o custom-columns=":metadata.name" -n corp-apps | grep dashy ) -- tar xf - -C /app/public/
    ```
 
 10. Then restart the deployment
    ```
-   kubectl rollout restart deployment dashy -n apps
+   kubectl rollout restart deployment dashy -n corp-apps
    ```
 
 11. Setup Authentication Forwarder for Dashy
