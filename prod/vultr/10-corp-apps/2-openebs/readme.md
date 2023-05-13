@@ -22,7 +22,7 @@
 
 4. Apply the cstor pool manifest
    ```
-   kubectl apply -f ./prod/vultr/10-corp-apps/1-openebs/create-cstor-poolcluster.yaml
+   kubectl apply -f ./prod/vultr/10-corp-apps/2-openebs/create-cstor-poolcluster.yaml
    ```
 
 5. Check the status
@@ -33,7 +33,7 @@
 
 6. Creating cStor storage classes
   ```
-   kubectl apply -f ./prod/vultr/10-corp-apps/1-openebs/cstor-csi-disk.yaml
+   kubectl apply -f ./prod/vultr/10-corp-apps/2-openebs/cstor-csi-disk.yaml
    ```
 
 6. Confirm the storage class 
