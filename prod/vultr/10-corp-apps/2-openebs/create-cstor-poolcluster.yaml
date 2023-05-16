@@ -6,7 +6,7 @@ metadata:
 spec:
  pools:
    - nodeSelector:
-       kubernetes.io/hostname: "kw07-node-ac1c6ca5ae51"
+       kubernetes.io/hostname: "kw07-node-f20e5fc18221"
      dataRaidGroups:
        - blockDevices:
            - blockDeviceName: "blockdevice-32ed588af04305df476199e9eddad6b6"
