@@ -1,0 +1,24 @@
+# encrypeted with cypher_inplace api-keys.yaml  --encrypted-regex='^(ClientID|ClientSecret)$'
+# to decrypt use: sops -d keys.yaml
+ClientID: ENC[AES256_GCM,data:ENj4Azo60EX6JKYAKU1H2dIPXNE0M6o5vFjosLoHOpoEJ2idBBzxtLZS2bcqpPwlsXnydgbTwjt1LRr7kNObBP+LL2Tu9mNo,iv:OWwSOSrCbC4aDDYdj0BrTzpQD/oA9m7TKuYjnB04yTg=,tag:r9O0iOR5Lr2mNzpFO+vagg==,type:str]
+ClientSecret: ENC[AES256_GCM,data:X9k9fuFfdg282DetAhnhvPQW9xamqMiftknbFKEVo8OvSfc=,iv:GKGygzq/v9dFYh/4tNOitMBgIbGDcC3rxifvJgiyeB8=,tag:z9cwWN51XFYEDLSqgSlXzg==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age:
+        - recipient: age15qvp6zlk4cxapra3xv3lx7vqyc6e8e3gnv277ly4qxmzr6dgvadsdpsm0l
+          enc: |
+            -----BEGIN AGE ENCRYPTED FILE-----
+            YWdlLWVuY3J5cHRpb24ub3JnL3YxCi0+IFgyNTUxOSBVTWhrOTZ5UjRzeC80OEFE
+            Y0V0ZW5XR3BVVmNwRURoaFdUOU4wbGxpK2xRCnFxempGV0prZjhibjVmcW03ZFZB
+            MUpVQUZKTEpoRklXZVd0enExc2JzcGMKLS0tIFRITTR4U2VMTDZuQjY2TDZ0QVgz
+            dzhFWSszUzZnUVdLblZKZVQ3YncrcDAKHbrV4z6jtJphpTX+5L28AOiTWP9tWAgO
+            7y5Dag+ja0kFKnjJlRBwSZ1iJtA3vFBy5oKAGjGd445b3fc0Ik8npA==
+            -----END AGE ENCRYPTED FILE-----
+    lastmodified: "2023-05-15T16:53:42Z"
+    mac: ENC[AES256_GCM,data:9w1QWWwpFPGQXZkhUOhPEMXzkzkdwiRB4ldKnM9tXCbv0BPs0hszVVic030/JwEzrPvqPPPEkzXrDswyb76jfmUepQe2oY2ZZgZ4SzOYjY1SLCmQCVkf27rN1rOEC01/J+ugWTuIy0ZNnqaba4kgP8UUaaM+W0CMUHrzwqqpL+A=,iv:6NfJrMCowIROE4M07IByCo53zmApbF3Bz9JzVbig/Lo=,tag:UyQNIz80N3Nz+pUOk5iVuA==,type:str]
+    pgp: []
+    encrypted_regex: ^(ClientID|ClientSecret)$
+    version: 3.7.3
