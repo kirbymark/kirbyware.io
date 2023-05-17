@@ -1,0 +1,7 @@
+apiVersion: projectcalico.org/v3
+kind: BGPPeer
+metadata:
+  name: yates-router
+spec:
+  peerIP: 10.200.10.1
+  asNumber: 64582

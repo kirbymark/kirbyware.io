@@ -1,0 +1,21 @@
+apiVersion: projectcalico.org/v3
+kind: BGPConfiguration
+metadata:
+  name: default
+spec:
+  logSeverityScreen: Info
+  nodeToNodeMeshEnabled: true
+  nodeMeshMaxRestartTime: 120s
+  asNumber: 64512
+  serviceLoadBalancerIPs:
+    - cidr: 10.200.10.0/24
+  listenPort: 179
+  bindMode: None
+---
+apiVersion: projectcalico.org/v3
+kind: BGPPeer
+metadata:
+  name: yates-router
+spec:
+  peerIP: 10.255.10.1
+  asNumber: 64582

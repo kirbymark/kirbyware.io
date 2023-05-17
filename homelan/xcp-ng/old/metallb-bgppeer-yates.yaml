@@ -1,0 +1,13 @@
+#
+#  Note:   I am not currently using this ... this is for direct MetalLB appraoch see https://geek-cookbook.funkypenguin.co.nz/kubernetes/loadbalancer/metallb/pfsense/
+#
+apiVersion: metallb.io/v1beta2
+kind: BGPPeer
+metadata:
+  name: bgppeer-yates
+  namespace: metallb-system
+spec:
+  myASN: 64583 
+  peerASN: 64582
+  peerAddress: 10.255.10.1
+  # bfdProfile: my-bfdprofile
