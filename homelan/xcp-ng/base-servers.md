@@ -1,5 +1,8 @@
 # Setup base servers
 
+Notes:  [following this guide](https://www.itsgeekhead.com/tuts/kubernetes-126-ubuntu-2204.txt)
+
+
 ## Use the image created
 Ubuntu-Base-Image
 
@@ -27,164 +30,121 @@ Ubuntu-Base-Image
     ```
 
 
-4. Confirm all OS patches are updated
+4. Prepare all hosts - part 1
     ```
-    sudo apt update && sudo apt dist-upgrade && sudo apt autoremove
-    ```
+    sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+    sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+    sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+    sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove
+    sudo apt-get install -y apt-transport-https ca-certificates curl
+    printf "overlay\nbr_netfilter\n" | sudo tee /etc/modules-load.d/containerd.conf
+    printf "net.bridge.bridge-nf-call-iptables = 1\nnet.ipv4.ip_forward = 1\nnet.bridge.bridge-nf-call-ip6tables = 1\n" | sudo tee /etc/sysctl.d/99-kubernetes-cri.conf
+
+    sudo wget https://github.com/containerd/containerd/releases/download/v1.7.1/containerd-1.7.1-linux-amd64.tar.gz -P /tmp/
+    sudo tar Cxzvf /usr/local /tmp/containerd-1.7.1-linux-amd64.tar.gz
+    sudo wget https://raw.githubusercontent.com/containerd/containerd/main/containerd.service -P /etc/systemd/system/
+    sudo systemctl daemon-reload
+    sudo systemctl enable --now containerd
+    
+    sudo wget https://github.com/opencontainers/runc/releases/download/v1.1.7/runc.amd64 -P /tmp/
+    sudo install -m 755 /tmp/runc.amd64 /usr/local/sbin/runc
 
 
-5. Install container runtime (on all servers) and confirm it is running
-    ```
-    sudo apt install containerd
+    sudo wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz -P /tmp/
+    sudo mkdir -p /opt/cni/bin
+    sudo tar Cxzvf /opt/cni/bin /tmp/cni-plugins-linux-amd64-v1.3.0.tgz
 
-    systemctl status containerd
-    ```
+    sudo mkdir -p /etc/containerd
+    sudo containerd config default | sudo tee /etc/containerd/config.toml
+    sudo sed -i "/SystemdCgroup/ s/= $PARTITION_COLUMN.*/= true/" /etc/containerd/config.toml 
+    sudo systemctl restart containerd
 
-6. Create containerd config file  (on all servers)
-    ```
-    sudo mkdir /etc/containerd && containerd config default | sudo tee /etc/containerd/config.toml
-    ```
+    sudo sed -i  's/^\/swap/#\/swap/' /etc/fstab
 
-7. Edit containerd config file  (on all servers)
-    ```
-    [plugins."io.containerd.grpc.v1.cri".containerd.runtimes.runc.options]
-                SystemdCgroup = true
-    ```
-    to check
-    ```
-    sudo more /etc/containerd/config.toml | grep SystemdCgroup
-                SystemdCgroup = true
+    sudo curl -fsSLo /etc/apt/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    sudo echo "deb [signed-by=/etc/apt/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+    sudo apt-get update
+
+    sudo reboot
     ```
 
-8. Disable swap and check it is off  (on all servers)
+5. Prepare all hosts - part 2
     ```
-    sudo swapoff -a && sudo rm /swap.img
-    sudo vi /etc/fstab
-    comment the line /swap.img
-
-    sudo swapon --show && free -h
-    ```
-
-9. Enable packet forwarding  (on all servers)
-    ```
-    sudo vi /etc/sysctl.conf
-    uncomment the line 
-            net.ipv4.ip_forward=1
-    ```
-
-10. set netfilter  (on all servers)
-    ```
-    sudo vi /etc/modules-load.d/k8s.conf
-
-    add line
-        br_netfilter
-    ```
-
-10. reboot all machines
-    ```
-    sudo reboot now
-    ```
-
-## 2 - Install K8 packages
----
-
-1. add the required GPG key and the package repo needed for kubernetes (on all servers)
-    ```
-    sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
-    echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-    sudo apt update
-    ```
-
-2. install the packages required for K8 (on all servers)
-    ```
-    sudo apt install kubeadm kubectl kubelet
+    sudo apt-get install -y kubelet kubeadm kubectl
+    sudo apt-mark hold kubelet kubeadm kubectl
+    free -m
+    exit
 
     ```
 
-## 3 - Aside -- creating new worker nodes
----
-
-1. Copy from the VM 
-
-2. Boot the node, change the hostname, then reboot
+6. Prepare CONTROLLER 
+    1. control plane install
     ```
-    hostnamectl set-hostname k8-node-01
-    sudo vi /etc/hosts
+    sudo kubeadm init --pod-network-cidr 10.10.0.0/16 --kubernetes-version 1.27.1 --node-name lkw-ctl00
     ```
-
-## 4 - Setup cluster 
----
-
-1. Create the K8 network on the controller
-    ```
-    sudo kubeadm init --control-plane-endpoint=10.255.10.15 --node-name k8-ctl-01 --pod-network-cidr=10.244.0.0/16
-    ```
-
-2. Copy and keep the join command from the output of the above command
-
-3. Run the commands on the contoller to provide user access
+    
+    2. Then run the command provided to create local user
     ```
     mkdir -p $HOME/.kube
     sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
     sudo chown $(id -u):$(id -g) $HOME/.kube/config
     ```
 
-4. Check cluster is running
+    3. Check all is good
     ```
-    ubuntu@k8-ctl-01:~$ kubectl get pods --all-namespaces
-    NAMESPACE     NAME                                READY   STATUS    RESTARTS   AGE
-    kube-system   coredns-565d847f94-hg29j            0/1     Pending   0          6m55s
-    kube-system   coredns-565d847f94-zqq7g            0/1     Pending   0          6m55s
-    kube-system   etcd-k8-ctl-01                      1/1     Running   0          7m8s
-    kube-system   kube-apiserver-k8-ctl-01            1/1     Running   0          7m8s
-    kube-system   kube-controller-manager-k8-ctl-01   1/1     Running   0          7m8s
-    kube-system   kube-proxy-6vkth                    1/1     Running   0          6m55s
-    kube-system   kube-scheduler-k8-ctl-01            1/1     Running   0          7m8s
+    kubectl get nodes
+    ```
+    should show as NotReady
+    ```
+    NAME        STATUS     ROLES           AGE     VERSION
+    lkw-ctl00   NotReady   control-plane   3m11s   v1.27.1
     ```
 
-  5. Create overlay network
+    4. Add Calico 3.25.1
     ```
-    kubectl apply -f https://raw.githubusercontent.com/flannel-io/flannel/master/Documentation/kube-flannel.yml
-    ```
-
-  6. Check cluster is running
-    ```
-    ubuntu@k8-ctl-01:~$ kubectl get pods --all-namespaces
-    NAMESPACE      NAME                                READY   STATUS    RESTARTS   AGE
-    kube-flannel   kube-flannel-ds-mpr9b               1/1     Running   0          21s
-    kube-system    coredns-565d847f94-hg29j            1/1     Running   0          9m44s
-    kube-system    coredns-565d847f94-zqq7g            1/1     Running   0          9m44s
-    kube-system    etcd-k8-ctl-01                      1/1     Running   0          9m57s
-    kube-system    kube-apiserver-k8-ctl-01            1/1     Running   0          9m57s
-    kube-system    kube-controller-manager-k8-ctl-01   1/1     Running   0          9m57s
-    kube-system    kube-proxy-6vkth                    1/1     Running   0          9m44s
-    kube-system    kube-scheduler-k8-ctl-01            1/1     Running   0          9m57
+    kubectl create -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.1/manifests/tigera-operator.yaml
     ```
 
+    5. Download and modify the Calico resource defintions
+    ```
+    wget https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/custom-resources.yaml
+    vi custom-resources.yaml
+    kubectl apply -f custom-resources.yaml
+    ```
 
-## 5 - Join nodes to the cluster 
----
+    Note The edit is to change the line for cidr
+    ```
+    >       cidr: 10.10.0.0/16
+    ---
+    <       cidr: 192.168.0.0/16
+    ```
 
-1. create a new join command (on the controller)
+    6. Get the join command
     ```
     kubeadm token create --print-join-command
+    kubeadm join 10.255.10.20:6443 --token xklj2e.crll1x4ag3ax1r2d --discovery-token-ca-cert-hash sha256:3968ebf4f61fcbc7463ed248ecde47068e832fb3e5d9b98804cb9021d6801893
     ```
 
-2. Use the output of the above on each of the nodes to join them to the cluster.
-* Note:  You need to use sudo then the join command
+7. Join workers to the controller
+    Run the command from above.  Make sure you run as sudo
+    ```
+    sudo kubeadm join 10.255.10.20:6443 --token xklj2e.crll1x4ag3ax1r2d --discovery-token-ca-cert-hash sha256:3968ebf4f61fcbc7463ed248ecde47068e832fb3e5d9b98804cb9021d6801893
+    exit
+    ```
+
+## Notes
+   
+you can confirm the nodes by running kubectl get nodes from the master contoller
+you can also copy the config to your local machines
+```
+scp kirbymark@lkw-ctl00.local.kirbyware.com:/home/kirbymark/.kube/config config-lkw
+export KUBECONFIG="${HOME}/.kube/config-gke:${HOME}/.kube/config-vke:${HOME}/.kube/config-lkw"
+restart the shell to load environment
+kubectx
+kubectx LKW=kubernetes-admin@kubernetes
+```
 
 
-## 6 - Cluster is now running
----
-1. To check the cluster
-    ```
-    ubuntu@k8-ctl-01:~$ kubectl get nodes
-    NAME         STATUS   ROLES           AGE   VERSION
-    k8-ctl-01    Ready    control-plane   17m   v1.25.3
-    k8-node-01   Ready    <none>          95s   v1.25.3
-    k8-node-02   Ready    <none>          71s   v1.25.3
-    k8-node-03   Ready    <none>          48s   v1.25.3
-    ```
 
 ## 7  - Cluster permissions
 ---
