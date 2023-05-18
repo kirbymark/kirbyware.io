@@ -1,0 +1,79 @@
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: test-stripprefix
+#   namespace: test
+# spec:
+#   stripPrefix:
+#     prefixes:
+#       - /test
+#       - /other
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: test-replacepathregex
+#   namespace: test
+# spec:
+#   replacePathRegex:
+#     regex: ^/mark/(.*)
+#     replacement: /$1
+# ---
+# apiVersion: traefik.containo.us/v1alpha1
+# kind: Middleware
+# metadata:
+#   name: test-clean-strip-header
+#   namespace: test
+# spec:
+#   headers:
+#     customRequestHeaders:
+#       X-Replaced-Path: "" # Removes
+# ---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: whoami-route-http
+  namespace: test
+  annotations: 
+    kubernetes.io/ingress.class: traefik
+spec:
+  entryPoints:
+    - web
+  routes:
+    - match: Host(`test.kirbyware.com`) 
+      kind: Rule
+      # middlewares:
+      #   - name: test-replacepathregex
+      #     namespace: test
+      #   - name: test-clean-strip-header
+      #     namespace: test
+      services:    
+      - kind: Service
+        name: whoami
+        namespace: test
+        port: 80
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: whoami-route-tls
+  namespace: test
+  annotations: 
+    kubernetes.io/ingress.class: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`test.kirbyware.com`) 
+      kind: Rule
+      # middlewares:
+      #   - name: test-stripprefix
+      #     namespace: test
+      services:    
+      - kind: Service
+        name: whoami
+        namespace: test
+        port: 80
+  tls:
+    # secretName: wildcard-kirbyware-io-production-tls
+    secretName: wildcard-local-kirbyware-com-production-tls

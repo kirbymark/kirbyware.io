@@ -3,14 +3,14 @@ kind: BGPConfiguration
 metadata:
   name: default
 spec:
-  logSeverityScreen: Info
-  nodeToNodeMeshEnabled: true
-  nodeMeshMaxRestartTime: 120s
+  # logSeverityScreen: Info
+  # nodeToNodeMeshEnabled: true
+  # nodeMeshMaxRestartTime: 120s
   asNumber: 64512
   serviceLoadBalancerIPs:
     - cidr: 10.200.10.0/24
-  listenPort: 179
-  bindMode: None
+  # listenPort: 179
+  # bindMode: None
 ---
 apiVersion: projectcalico.org/v3
 kind: BGPPeer

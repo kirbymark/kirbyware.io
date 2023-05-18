@@ -1,0 +1,18 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: cloudflare-staging
+  namespace: traefik
+spec:
+  acme:
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    email: mark@kirbyware.com
+    privateKeySecretRef:
+      name: cloudflare-key-staging
+    solvers:
+      - dns01:
+          cloudflare:
+            email: mark@kirbyware.com
+            apiTokenSecretRef:
+              name: cloudflare-dns-edit-key
+              key: api-token

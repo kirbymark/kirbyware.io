@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-local-kirbyware-com-staging
+  namespace: traefik
+spec:
+  secretName: wildcard-local-kirbyware-com-staging-tls
+  dnsNames:
+    - "local.kirbyware.com"
+    - "*.local.kirbyware.com"
+  issuerRef:
+    name: cloudflare-staging
+    kind: Issuer
