@@ -21,16 +21,18 @@
    ```
    kubectl create namespace traefik
    kubectl apply -f ./homelan/3-setup-traefik/cloudflare-dns-edit-key.yaml
-   kubectl apply -f ./homelan/3-setup-traefik/cert-manager-issuer-local-kirbyware-com-staging.yaml
+   kubectl apply -f ./homelan/3-setup-traefik/cert-manager-issuer-kirbyware-com-staging.yaml
    kubectl apply -f ./homelan/3-setup-traefik/certificate-local-kirbyware-com-staging.yaml
+   kubectl apply -f ./homelan/3-setup-traefik/certificate-kirbyware-com-staging.yaml
    kubectl get certificate -n traefik
    ```
    
    Then production
    ```
    kubectl apply -f ./homelan/3-setup-traefik/cloudflare-dns-edit-key.yaml
-   kubectl apply -f ./homelan/3-setup-traefik/cert-manager-issuer-local-kirbyware-com-production.yaml
+   kubectl apply -f ./homelan/3-setup-traefik/cert-manager-issuer-kirbyware-com-production.yaml
    kubectl apply -f ./homelan/3-setup-traefik/certificate-local-kirbyware-com-production.yaml
+   kubectl apply -f ./homelan/3-setup-traefik/certificate-kirbyware-com-production.yaml
    kubectl get certificate -n traefik
    ```
 

@@ -39,7 +39,7 @@
 
 7. Confirm ingress
    https://test.local.kirbyware.com
-   http://test.local.kirbyware.com
+
 
 
 8. Cleanup test resources

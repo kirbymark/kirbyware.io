@@ -9,7 +9,7 @@ ingressClass:
 
 ingressRoute:
   dashboard:
-    enabled: true
+    enabled: true  
 
 # Configure providers
 #
@@ -22,6 +22,7 @@ providers:
 # from.
 service:
   enabled: true
+  single: true
   type: LoadBalancer
   annotations: {}
   labels: {}
@@ -33,5 +34,10 @@ service:
 
 tlsStore:
   default:
-    defaultCertificate:
-      secretName: wildcard-local-kirbyware-com-production-tls
+    certificates:
+    - secretName: test-kirbyware-com-production-tls
+    - secretName: wildcard-kirbyware-com-production-tls
+    defaultCertificate:                                                       
+      secretName: wildcard-kirbyware-com-production-tls
+
+tlsOptions: {}

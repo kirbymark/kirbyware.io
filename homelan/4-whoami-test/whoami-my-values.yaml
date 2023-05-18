@@ -3,7 +3,7 @@ service:
   annotations: {}
 
   # Service type
-  type: LoadBalancer
+  type: ClusterIP
 
   # Static cluster IP address or None for headless service when service type is ClusterIP
   # clusterIP: 10.43.0.100
