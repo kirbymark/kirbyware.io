@@ -1,0 +1,39 @@
+apiVersion: cstor.openebs.io/v1
+kind: CStorPoolCluster
+metadata:
+  name: cstor-disk-pool
+  namespace: openebs
+spec:
+  pools:
+  - dataRaidGroups:
+    - blockDevices:
+      # /dev/xvdb1  240.0GiB
+      - blockDeviceName: blockdevice-2f45b10eb0dc7dbc3311fec69873afb5
+    nodeSelector:
+      kubernetes.io/hostname: lkw-node00
+    poolConfig:
+      dataRaidGroupType: stripe
+  - dataRaidGroups:
+    - blockDevices:
+      # /dev/xvdb1  240.0GiB
+      - blockDeviceName: blockdevice-1f7b852c34f613ca2f53c6bc58a474ce
+    nodeSelector:
+      kubernetes.io/hostname: lkw-node01
+    poolConfig:
+      dataRaidGroupType: stripe
+  - dataRaidGroups:
+    - blockDevices:
+      # /dev/xvdb1  240.0GiB
+      - blockDeviceName: blockdevice-dccdad0e94d8899647e386260344a3a7
+    nodeSelector:
+      kubernetes.io/hostname: lkw-node02
+    poolConfig:
+      dataRaidGroupType: stripe
+  - dataRaidGroups:
+    - blockDevices:
+      # /dev/xvdb1  240.0GiB
+      - blockDeviceName: blockdevice-20d24a2a4cc00a6e9f1807170d582603
+    nodeSelector:
+      kubernetes.io/hostname: lkw-node03
+    poolConfig:
+      dataRaidGroupType: stripe

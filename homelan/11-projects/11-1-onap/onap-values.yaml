@@ -1,0 +1,51 @@
+###################################################################
+# kirbyware v01 values
+###################################################################
+cassandra:
+  enabled: true
+mariadb-galera:
+  enabled: true
+aaf:
+  enabled: true
+aai:
+  enabled: true
+clamp:
+  enabled: true
+consul:
+  enabled: true
+dcaegen2-services:
+  enabled: true
+holmes:
+  enabled: true
+dmaap:
+  enabled: true
+  message-router:
+    enabled: true
+  dmaap-bc:
+    enabled: false
+  dmaap-dr-prov:
+    enabled: false
+  dmaap-dr-node:
+    enabled: false
+log:
+  enabled: true
+oof:
+  enabled: true
+msb:
+  enabled: true
+policy:
+  enabled: true
+portal:
+  enabled: true
+robot:
+  enabled: true
+sdc:
+  enabled: true
+sdnc:
+  enabled: true
+so:
+  enabled: true
+strimzi:
+  enabled: false
+  strimzi-kafka-bridge:
+    enabled: false
