@@ -1,51 +1,216 @@
-###################################################################
-# kirbyware v01 values
-###################################################################
-cassandra:
-  enabled: true
-mariadb-galera:
-  enabled: true
+
+#################################################################
+# Global configuration overrides.
+#
+# These overrides will affect all helm charts (ie. applications)
+# that are listed below and are 'enabled'.
+#################################################################
+global:
+  # Change to an unused port prefix range to prevent port conflicts
+  # with other instances running within the same k8s cluster
+  # common global images
+  # Busybox for simple shell manipulation
+  # readiness check image
+  readinessImage: onap/oom/readiness:3.0.1
+
+  # image pull policy
+  pullPolicy: Always
+
+  clusterName: cluster.local
+
+  # default mount path root directory referenced
+  # by persistent volumes and log files
+  persistence:
+    storageClass: cstor-csi-disk
+
+  # override default resource limit flavor for all charts
+  flavor: unlimited
+
+  # flag to enable debugging - application support required
+  debugEnabled: false
+
+  # Global ingress configuration
+  ingress:
+    # generally enable ingress for ONAP components
+    enabled: false
+    # enable all component's Ingress interfaces
+    enable_all: false
+    virtualhost:
+      # Default Ingress base URL
+      # can be overwritten in component by setting ingress.baseurlOverride
+      baseurl: "simpleonap.kirbyware.com"
+      # prefix for baseaddr
+      # can be overwritten in component by setting ingress.preaddrOverride
+      preaddr: ""
+      # postfix for baseaddr
+      # can be overwritten in component by setting ingress.postaddrOverride
+      postaddr: ""
+
+  serviceMesh:
+    enabled: false
+    tls: false
+    # be aware that linkerd is not well tested
+    engine: "istio" # valid value: istio or linkerd
+
+  authorizationPolicies:
+    enabled: false
+
+  metrics:
+    enabled: false
+    custom_resources: false
+
+  aafEnabled: false
+
+
+  # Disabling MSB
+  # POC Mode, only for use in development environment
+  msbEnabled: false
+  offlineDeploymentBuild: false
+  tlsEnabled: false
+
+  # Logging
+  # Currently, centralized logging is not in best shape so it's disabled by
+  # default
+  centralizedLoggingEnabled: false
 aaf:
-  enabled: true
+  enabled: false
+  aaf-sms:
+    cps:
+      # you must always set the same values as value set in cps.enabled
+      enabled: false
 aai:
   enabled: true
+  global:
+    cassandra:
+      replicas: 1
+  aai-cassandra:
+    replicaCount: 1
+
+cassandra:
+  enabled: true
+  replicaCount: 3
+
+cds:
+  enabled: false
 clamp:
-  enabled: true
+  enabled: false
+cli:
+  enabled: false
 consul:
-  enabled: true
+  enabled: false
+contrib:
+  enabled: false
+cps:
+  enabled: false
 dcaegen2-services:
-  enabled: true
+  enabled: false
 holmes:
-  enabled: true
+  enabled: false
 dmaap:
   enabled: true
   message-router:
     enabled: true
+  dmaap-bc:
+    enabled: true
+  dmaap-dr-prov:
+    enabled: true
+  dmaap-dr-node:
+    enabled: true
+
+  message-router:
+    enabled: false
   dmaap-bc:
     enabled: false
   dmaap-dr-prov:
     enabled: false
   dmaap-dr-node:
     enabled: false
+# Today, "logging" chart that perform the central part of logging must also be
+# enabled in order to make it work. So `logging.enabled` must have the same
+# value as centralizedLoggingEnabled
 log:
-  enabled: true
+  enabled: false
+sniro-emulator:
+  enabled: false
 oof:
+  enabled: false
+mariadb-galera:
   enabled: true
 msb:
-  enabled: true
+  enabled: false
+multicloud:
+  enabled: false
+nbi:
+  enabled: false
 policy:
-  enabled: true
+  enabled: false
+pomba:
+  enabled: false
 portal:
-  enabled: true
+  enabled: false
 robot:
-  enabled: true
+  enabled: false
+  config:
+    # openStackEncryptedPasswordHere should match the encrypted string used in SO and overridden per environmen
+
 sdc:
   enabled: true
+  sdc-be:
+    config:
+      javaOptions: "-Xdebug -agentlib:jdwp=transport=dt_socket,address=4000,server=y,suspend=n -Xmx512m -Xms256m"
+  sdc-fe:
+    resources:
+      small:
+        limits:
+          cpu: 1
+          memory: 2Gi
+        requests:
+          cpu: 10m
+          memory: 500Mi
+  sdc-cs:
+    config:
+      maxHeapSize: "512M"
+      heapNewSize: "256M"
 sdnc:
   enabled: true
+
 so:
   enabled: true
-strimzi:
-  enabled: false
-  strimzi-kafka-bridge:
+
+  replicaCount: 1
+
+  liveness:
+    # necessary to disable liveness probe when setting breakpoints
+    # in debugger so K8s doesn't restart unresponsive container
+    enabled: false
+
+  # so server configuration
+  config:
+    # openstack configuration
+    openStackUserName: "$OPENSTACK_USER_NAME"
+    openStackRegion: "$OPENSTACK_REGION"
+    openStackKeyStoneUrl: "$OPENSTACK_KEYSTONE_URL"
+    openStackServiceTenantName: "$OPENSTACK_TENANT_NAME"
+    openStackEncryptedPasswordHere: "$OPENSTACK_ENCRYPTED_PASSWORD"
+  
+  strimzi:
+    enabled: false
+    # Kafka replication & disk storage should be dimensioned
+    # according to each given system use case.
+    replicaCount: 3
+    persistence:
+      kafka:
+        size: 10Gi
+      zookeeper:
+        size: 1Gi
+    # Strimzi kafka bridge is an optional http api towards
+    # kafka provided by https://strimzi.io/docs/bridge/latest/
+    strimzi-kafka-bridge:
+      enabled: false
+
+  uui:
+    enabled: false
+  vfc:
+    enabled: false
+  vnfsdk:
     enabled: false

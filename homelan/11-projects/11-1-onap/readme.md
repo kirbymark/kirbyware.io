@@ -46,6 +46,7 @@
 
 7. Deploy ONAP
    ```
-   helm deploy dev01 onap-release/onap --namespace onap --create-namespace --set global.masterPassword=myAwesomePassword88 --version 11.0.0 -f 11-1-onap/onap-values.yaml
+   helm deploy dev01 onap-release/onap --namespace onap --create-namespace --set global.masterPassword=myAwesomePassword88 --version 11.0.0 -f 11-1-onap/onap-values.yaml -f https://raw.githubusercontent.com/onap/oom/master/kubernetes/onap/resources/overrides/environment.yaml
+   
    helm deploy dev01 onap-release/onap --namespace onap --create-namespace --set global.masterPassword=myAwesomePasswordThatINeedToChange --version 11.0.0 -f 11-1-onap/onap-values.yaml -f oom/kubernetes/onap/resources/overrides/environment.yaml
    ```

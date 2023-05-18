@@ -35,6 +35,7 @@ Ubuntu-Base-Image
     sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
     sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
     sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+    sudo apt install nfs-common -y 
     sudo apt update && sudo apt upgrade && sudo apt dist-upgrade && sudo apt autoremove
     sudo apt-get install -y apt-transport-https ca-certificates curl
     printf "overlay\nbr_netfilter\n" | sudo tee /etc/modules-load.d/containerd.conf
