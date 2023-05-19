@@ -71,3 +71,9 @@
       echo Username: admin
       echo Password: $(kubectl get secret --namespace wordpress my-release-wordpress -o jsonpath="{.data.wordpress-password}" | base64 -d)
    ```
+
+   
+5. Add the ingress-route for Traefilk
+   ```
+   k apply -f homelan/5-openebs/test-nfs-wordpress-ingressroute.yaml
+   ```
