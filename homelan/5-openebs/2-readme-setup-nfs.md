@@ -26,44 +26,48 @@
          --set persistence.storageClass=openebs-rwx \
          --set mariadb.primary.persistence.storageClass=openebs-rwx \
          --set persistence.accessModes={ReadWriteMany} \
-         --set volumePermissions.enabled=true \
+         --set mariadb.volumePermissions.enabled=true \
          --set autoscaling.enabled=true \
          --set autoscaling.minReplicas=2 \
          --set autoscaling.maxReplicas=6 \
          --set autoscaling.targetCPU=80 \
          bitnami/wordpress
    ```
-NAME: my-release
-LAST DEPLOYED: Thu May 18 19:42:16 2023
-NAMESPACE: wordpress
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-NOTES:
-CHART NAME: wordpress
-CHART VERSION: 16.1.5
-APP VERSION: 6.2.1
 
-** Please be patient while the chart is being deployed **
+   output :
+   ```
+      NAME: my-release
+      LAST DEPLOYED: Fri May 19 08:53:21 2023
+      NAMESPACE: wordpress
+      STATUS: deployed
+      REVISION: 1
+      TEST SUITE: None
+      NOTES:
+      CHART NAME: wordpress
+      CHART VERSION: 16.1.5
+      APP VERSION: 6.2.1
 
-Your WordPress site can be accessed through the following DNS name from within your cluster:
+      ** Please be patient while the chart is being deployed **
 
-    my-release-wordpress.wordpress.svc.cluster.local (port 80)
+      Your WordPress site can be accessed through the following DNS name from within your cluster:
 
-To access your WordPress site from outside the cluster follow the steps below:
+         my-release-wordpress.wordpress.svc.cluster.local (port 80)
 
-1. Get the WordPress URL by running these commands:
+      To access your WordPress site from outside the cluster follow the steps below:
 
-  NOTE: It may take a few minutes for the LoadBalancer IP to be available.
-        Watch the status with: 'kubectl get svc --namespace wordpress -w my-release-wordpress'
+      1. Get the WordPress URL by running these commands:
 
-   export SERVICE_IP=$(kubectl get svc --namespace wordpress my-release-wordpress --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}")
-   echo "WordPress URL: http://$SERVICE_IP/"
-   echo "WordPress Admin URL: http://$SERVICE_IP/admin"
+      NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+            Watch the status with: 'kubectl get svc --namespace wordpress -w my-release-wordpress'
 
-2. Open a browser and access WordPress using the obtained URL.
+         export SERVICE_IP=$(kubectl get svc --namespace wordpress my-release-wordpress --template "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}")
+         echo "WordPress URL: http://$SERVICE_IP/"
+         echo "WordPress Admin URL: http://$SERVICE_IP/admin"
 
-3. Login with the following credentials below to see your blog:
+      2. Open a browser and access WordPress using the obtained URL.
 
-  echo Username: admin
-  echo Password: $(kubectl get secret --namespace wordpress my-release-wordpress -o jsonpath="{.data.wordpress-password}" | base64 -d)
+      3. Login with the following credentials below to see your blog:
+
+      echo Username: admin
+      echo Password: $(kubectl get secret --namespace wordpress my-release-wordpress -o jsonpath="{.data.wordpress-password}" | base64 -d)
+   ```
