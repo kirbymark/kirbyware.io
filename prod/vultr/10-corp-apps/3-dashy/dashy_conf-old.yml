@@ -66,7 +66,7 @@ sections:
       - title: XOA
         description: Xen Orchestra
         icon: xoa-transparent.png
-        url: http://deb-xoa.local.kirbyware.com/
+        url: http://xoa-ui.local.kirbyware.com
         target: newtab
         id: 1_1703_xoa
       - title: Yates
@@ -99,11 +99,11 @@ sections:
         url: https://nas.local.kirbyware.com
         target: newtab
         id: 6_1703_truenas
-      - title: Local XOA
+      - title: Mule-XOA
         description: xoa
         icon: xoa-transparent.png
-        url: http://deb-xoa.local.kirbyware.com/
-        id: 7_1703_localxoa
+        url: http://mule-xoa.local.kirbyware.com/
+        id: 7_1703_mulexoa
   - name: Getting Started
     icon: fas fa-rocket
     items:
@@ -184,7 +184,7 @@ sections:
         id: 0_1700_jsitor
       - title: Github
         description: Github - kirbymark
-        icon: github-mark-white.svg
+        icon: fa fa-github
         url: https://github.com/kirbymark
         target: newtab
         id: 1_1700_github
@@ -212,7 +212,7 @@ sections:
         id: 0_1488_traefik
       - title: Cloud Console
         description: Google Cloud Console
-        icon: googlecloud-color.svg
+        icon: ':cloud:'
         url: https://console.cloud.google.com/
         target: newtab
         id: 1_1488_cloudconsole
@@ -222,8 +222,3 @@ sections:
         url: >-
           https://lookerstudio.google.com/reporting/844ea9d9-0ab5-4056-98b6-f900ec233850/page/p_31jgaxtw5c
         id: 2_1488_lookerstudio
-      - title: Vultr Account
-        description: My Vultr
-        icon: vultr-color.svg
-        url: https://my.vultr.com/
-        id: 3_1488_vultraccount
