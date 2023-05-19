@@ -7,12 +7,12 @@
 
 2. create a NFS Storageclass
    ```
-   kubectl apply -f homelan/5-openebs/nfs-volume.yaml
+   kubectl apply -f prod/homelan/5-openebs/nfs-volume.yaml
    ```
 
 3. create a nfs-pvc
    ```
-   kubectl apply -f homelan/5-openebs/nfs-pvc.yaml
+   kubectl apply -f prod/homelan/5-openebs/nfs-pvc.yaml
    ```
 
 4. Test the setup using [this guide](https://github.com/openebs/dynamic-nfs-provisioner/blob/develop/docs/workload/wordpress.md)
@@ -75,5 +75,5 @@
    
 5. Add the ingress-route for Traefilk
    ```
-   k apply -f homelan/5-openebs/test-nfs-wordpress-ingressroute.yaml
+   k apply -f prod/homelan/5-openebs/test-nfs-wordpress-ingressroute.yaml
    ```

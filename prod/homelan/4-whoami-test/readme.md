@@ -10,7 +10,7 @@
 2. Install whoami
    ```
    helm repo add cowboysysop https://cowboysysop.github.io/charts/ && helm repo update
-   helm install whoami cowboysysop/whoami -n test -f homelan/4-whoami-test/whoami-my-values.yaml
+   helm install whoami cowboysysop/whoami -n test -f prod/homelan/4-whoami-test/whoami-my-values.yaml
    ```
 
 3. Check it is running
@@ -33,7 +33,7 @@
 
 6. Create Ingress Route - [manifest](./whoami-ingress-route.yaml)
    ```
-   kubectl apply -f ./homelan/4-whoami-test/whoami-ingress-route.yaml
+   kubectl apply -f ./prod/homelan/4-whoami-test/whoami-ingress-route.yaml
    ```
 
 

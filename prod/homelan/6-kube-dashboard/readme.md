@@ -2,8 +2,8 @@
 
 1.  Create a user -- [see notes here](https://github.com/kubernetes/dashboard/blob/master/docs/user/access-control/creating-sample-user.md)
     ```
-    k apply -f homelan/6-kube-dashboard/service-account-user.yaml
-    k apply -f homelan/6-kube-dashboard/cluster-role-binfding.yaml
+    k apply -f prod/homelan/6-kube-dashboard/service-account-user.yaml
+    k apply -f prod/homelan/6-kube-dashboard/cluster-role-binfding.yaml
     ```
 
 2.  Get the token
@@ -23,11 +23,11 @@ https://artifacthub.io/packages/helm/k8s-dashboard/kubernetes-dashboard
 
 1.  Via helm
     ```
-    helm install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard -n kubernetes-dashboard --create-namespace -f homelan/6-kube-dashboard/dashboard-my-values.yaml 
+    helm install kubernetes-dashboard kubernetes-dashboard/kubernetes-dashboard -n kubernetes-dashboard --create-namespace -f prod/homelan/6-kube-dashboard/dashboard-my-values.yaml 
     ```
 2. Add ingress route
    ```
-   kubectl apply -f homelan/6-kube-dashboard/dashboard-ingressroute.yaml
+   kubectl apply -f prod/homelan/6-kube-dashboard/dashboard-ingressroute.yaml
    ```
    Note:  We are going to all local routing using  [pfSense's DNS resolver\(http://10.255.100.1/services_unbound.php).   
    Will add an entry for the LKW cluster ingress which is 10.200.10.1 and then all the aliases.   Create an alias for k8-dash.kirbyware.com and then use this in the ingress route

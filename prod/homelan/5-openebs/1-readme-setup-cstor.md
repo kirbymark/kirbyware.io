@@ -23,7 +23,7 @@
    
 4. Apply the cstor pool manifest
       ```
-      kubectl apply -f homelan/5-openebs/create-cstor-poolcluster.yaml
+      kubectl apply -f prod/homelan/5-openebs/create-cstor-poolcluster.yaml
       ```
 
 5. Check the status
@@ -34,7 +34,7 @@
 
 6. Creating cStor storage classes
    ```
-   kubectl apply -f homelan/5-openebs/cstor-csi-disk.yaml
+   kubectl apply -f prod/homelan/5-openebs/cstor-csi-disk.yaml
    ```
 
 7. Confirm the storage class 
@@ -44,12 +44,12 @@
 
 8. Create PVC for sample app
    ```
-   kubectl apply -f homelan/5-openebs/sample-app-pvc.yaml
+   kubectl apply -f prod/homelan/5-openebs/sample-app-pvc.yaml
    ```    
 
 8. Create the app
    ```
-   kubectl apply -f homelan/5-openebs/sample-app.yaml
+   kubectl apply -f prod/homelan/5-openebs/sample-app.yaml
    ```    
 
 9. Check the outpu

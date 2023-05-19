@@ -20,19 +20,19 @@
    Staging to confirm it is working
    ```
    kubectl create namespace traefik
-   kubectl apply -f ./homelan/3-setup-traefik/cloudflare-dns-edit-key.yaml
-   kubectl apply -f ./homelan/3-setup-traefik/cert-manager-issuer-kirbyware-com-staging.yaml
-   kubectl apply -f ./homelan/3-setup-traefik/certificate-local-kirbyware-com-staging.yaml
-   kubectl apply -f ./homelan/3-setup-traefik/certificate-kirbyware-com-staging.yaml
+   kubectl apply -f ./prod/homelan/3-setup-traefik/cloudflare-dns-edit-key.yaml
+   kubectl apply -f ./prod/homelan/3-setup-traefik/cert-manager-issuer-kirbyware-com-staging.yaml
+   kubectl apply -f ./prod/homelan/3-setup-traefik/certificate-local-kirbyware-com-staging.yaml
+   kubectl apply -f ./prod/homelan/3-setup-traefik/certificate-kirbyware-com-staging.yaml
    kubectl get certificate -n traefik
    ```
    
    Then production
    ```
-   kubectl apply -f ./homelan/3-setup-traefik/cloudflare-dns-edit-key.yaml
-   kubectl apply -f ./homelan/3-setup-traefik/cert-manager-issuer-kirbyware-com-production.yaml
-   kubectl apply -f ./homelan/3-setup-traefik/certificate-local-kirbyware-com-production.yaml
-   kubectl apply -f ./homelan/3-setup-traefik/certificate-kirbyware-com-production.yaml
+   kubectl apply -f ./prod/homelan/3-setup-traefik/cloudflare-dns-edit-key.yaml
+   kubectl apply -f ./prod/homelan/3-setup-traefik/cert-manager-issuer-kirbyware-com-production.yaml
+   kubectl apply -f ./prod/homelan/3-setup-traefik/certificate-local-kirbyware-com-production.yaml
+   kubectl apply -f ./prod/homelan/3-setup-traefik/certificate-kirbyware-com-production.yaml
    kubectl get certificate -n traefik
    ```
 
@@ -40,12 +40,12 @@
 4. Install Traefik via Helm
    ```
    helm repo add traefik https://traefik.github.io/charts && helm repo update
-   helm install traefik traefik/traefik -f ./homelan/3-setup-traefik/local-values.yaml --namespace=traefik
+   helm install traefik traefik/traefik -f ./prod/homelan/3-setup-traefik/local-values.yaml --namespace=traefik
    ```
 
 5. Set the default certificate for traefik
    ```
-   kubectl apply -f ./homelan/3-setup-traefik/traefik-default-cert.yaml
+   kubectl apply -f ./prod/homelan/3-setup-traefik/traefik-default-cert.yaml
    ```
 
 6. See the dashboard
