@@ -6,50 +6,28 @@
 # that are listed below and are 'enabled'.
 #################################################################
 global:
-  # Change to an unused port prefix range to prevent port conflicts
-  # with other instances running within the same k8s cluster
-  # common global images
-  # Busybox for simple shell manipulation
-  # readiness check image
   readinessImage: onap/oom/readiness:3.0.1
-
-  # image pull policy
   pullPolicy: Always
-
-  clusterName: cluster.local
-
-  # default mount path root directory referenced
-  # by persistent volumes and log files
+  clusterName: cluster.local 
+  addTestingComponents: false
+  centralizedLoggingEnabled: false
   persistence:
-    storageClass: cstor-csi-disk
-
+    storageClass: openebs-rwx
+    mountPath: /onap/data
+    storageclassProvisioner: openebs.io/nfsrwx
   # override default resource limit flavor for all charts
   flavor: unlimited
-
-  # flag to enable debugging - application support required
   debugEnabled: false
-
-  # Global ingress configuration
   ingress:
-    # generally enable ingress for ONAP components
     enabled: false
-    # enable all component's Ingress interfaces
     enable_all: false
     virtualhost:
-      # Default Ingress base URL
-      # can be overwritten in component by setting ingress.baseurlOverride
       baseurl: "simpleonap.kirbyware.com"
-      # prefix for baseaddr
-      # can be overwritten in component by setting ingress.preaddrOverride
       preaddr: ""
-      # postfix for baseaddr
-      # can be overwritten in component by setting ingress.postaddrOverride
       postaddr: ""
-
   serviceMesh:
     enabled: false
     tls: false
-    # be aware that linkerd is not well tested
     engine: "istio" # valid value: istio or linkerd
 
   authorizationPolicies:
@@ -60,18 +38,11 @@ global:
     custom_resources: false
 
   aafEnabled: false
-
-
-  # Disabling MSB
-  # POC Mode, only for use in development environment
   msbEnabled: false
   offlineDeploymentBuild: false
   tlsEnabled: false
-
-  # Logging
-  # Currently, centralized logging is not in best shape so it's disabled by
-  # default
   centralizedLoggingEnabled: false
+
 aaf:
   enabled: false
   aaf-sms:
@@ -88,7 +59,7 @@ aai:
 
 cassandra:
   enabled: true
-  replicaCount: 3
+  replicaCount: 2
 
 cds:
   enabled: false
@@ -116,7 +87,6 @@ dmaap:
     enabled: true
   dmaap-dr-node:
     enabled: true
-
   message-router:
     enabled: false
   dmaap-bc:
@@ -125,9 +95,7 @@ dmaap:
     enabled: false
   dmaap-dr-node:
     enabled: false
-# Today, "logging" chart that perform the central part of logging must also be
-# enabled in order to make it work. So `logging.enabled` must have the same
-# value as centralizedLoggingEnabled
+
 log:
   enabled: false
 sniro-emulator:
@@ -151,7 +119,6 @@ portal:
 robot:
   enabled: false
   config:
-    # openStackEncryptedPasswordHere should match the encrypted string used in SO and overridden per environmen
 
 sdc:
   enabled: true
@@ -172,16 +139,15 @@ sdc:
       maxHeapSize: "512M"
       heapNewSize: "256M"
 sdnc:
-  enabled: true
+  enabled: false
+  replicaCount: 1
+  mysql:
+    replicaCount: 1
 
 so:
-  enabled: true
-
+  enabled: false
   replicaCount: 1
-
   liveness:
-    # necessary to disable liveness probe when setting breakpoints
-    # in debugger so K8s doesn't restart unresponsive container
     enabled: false
 
   # so server configuration
@@ -207,10 +173,21 @@ so:
     # kafka provided by https://strimzi.io/docs/bridge/latest/
     strimzi-kafka-bridge:
       enabled: false
-
-  uui:
-    enabled: false
-  vfc:
-    enabled: false
-  vnfsdk:
-    enabled: false
+uui:
+  enabled: false
+vfc:
+  enabled: false
+vnfsdk:
+  enabled: false
+modeling:
+  enabled: false
+platform:
+  enabled: false
+a1policymanagement:
+  enabled: false
+cert-wrapper:
+  enabled: true
+repository-wrapper:
+  enabled: true
+roles-wrapper:
+  enabled: true

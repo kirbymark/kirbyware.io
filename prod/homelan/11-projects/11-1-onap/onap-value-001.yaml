@@ -20,13 +20,17 @@
 # This override file enables helm charts for all ONAP applications.
 ###################################################################
 global:
-  addTestingComponents: &testing true
-  centralizedLoggingEnabled: &centralizedLogging false
+  addTestingComponents: false
+  centralizedLoggingEnabled: false
+  persistence:
+    storageClass: openebs-rwx
+    mountPath: /onap/data
+    storageclassProvisioner: openebs.io/nfsrwx
 cassandra:
   enabled: true
 mariadb-galera:
   enabled: true
-postgres:
+postgres: 
   enabled: true
 aaf:
   enabled: false
@@ -46,7 +50,7 @@ cli:
 # in order to make it work. So `contrib.enabled` must have the same value than
 # addTestingComponents
 contrib:
-  enabled: *testing
+  enabled: false
 consul:
   enabled: true
 cps:
