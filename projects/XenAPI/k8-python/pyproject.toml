@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "k8-python"
+version = "0.1.0"
+description = ""
+authors = ["Mark Kirby <mark@kirbyware.com>"]
+readme = "README.md"
+packages = [{include = "k8_python"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+kubernetes = "^26.1.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
