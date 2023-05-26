@@ -1,0 +1,41 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: parse-tls
+  namespace: parse
+  annotations: 
+    kubernetes.io/ingress.class: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`parse.kirbyware.com`) 
+      kind: Rule
+      services:    
+      - kind: Service
+        name: parse
+        namespace: parse
+        port: 1337
+  tls:
+    secretName: test-kirbyware-com-production-tls
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: parse-dashboard-tls
+  namespace: parse
+  annotations: 
+    kubernetes.io/ingress.class: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`parse-ui.kirbyware.com`) 
+      kind: Rule
+      services:    
+      - kind: Service
+        name: parse-dashboard
+        namespace: parse
+        port: 80
+  tls:
+    secretName: test-kirbyware-com-production-tls
