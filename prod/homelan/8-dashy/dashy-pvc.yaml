@@ -1,0 +1,16 @@
+## This create a PVC directly with Vultr storage classes -- which have a minimum size of 40GB
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dashy-pvc
+  namespace: corp-apps
+  labels:
+    app: dashy
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 512Mi
+  storageClassName: cstor-csi-disk

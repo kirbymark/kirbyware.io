@@ -1,0 +1,29 @@
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: prometheus-ui-tls
+  namespace: traefik
+  annotations: 
+    kubernetes.io/ingress.class: traefik
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: Host(`prometheus-ui.kirbyware.com`) 
+      kind: Rule
+      # middlewares:
+      #   - name: test-stripprefix
+      #     namespace: test
+      services:    
+      - kind: Service
+        name: prometheus-operated
+        namespace: monitoring
+        port: 9090
+  tls:
+    # options:
+    #   name: tlsoptions
+    #   namespace: traefik
+    secretName: test-kirbyware-com-production-tls
+    store:
+      name: default
+      namespace: traefik                                                                                                                                                                                                                                                                         

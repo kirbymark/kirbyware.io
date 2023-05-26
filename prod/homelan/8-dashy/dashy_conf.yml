@@ -1,0 +1,229 @@
+pageInfo:
+  title: kirbyware.io
+  description: Welcome to our new dashboard!
+  logo: https://i.ibb.co/qWWpD0v/astro-dab-128.png
+  navLinks:
+    - title: GitHub
+      path: https://github.com/Lissy93/dashy
+    - title: Documentation
+      path: https://dashy.to/docs
+appConfig:
+  theme: dracula
+  layout: horizontal
+  iconSize: large
+  language: en
+sections:
+  - name: 0. kirbyware
+    icon: fas fa-briefcase
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: Freshbooks
+        description: Accounting
+        icon: >-
+          https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.freshbooks.com&size=128
+        url: https://my.freshbooks.com/#/dashboard
+        target: newtab
+        id: 0_1102_freshbooks
+      - title: Fieldglass
+        description: ''
+        icon: >-
+          https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.fieldglass.com&size=128
+        url: https://www.fieldglass.net/worker_desktop.do
+        target: newtab
+        id: 1_1102_fieldglass
+      - title: Notion
+        icon: >-
+          https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.notion.so&size=128
+        url: >-
+          https://www.notion.so/9416ed7866a640d8a20cd602015da4e0?v=8c6b5545a45d47bab051ccfa21b765c7&pvs=4
+        id: 2_1102_notion
+      - title: Banking
+        icon: >-
+          https://t3.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://www.bluevine.com&size=128
+        url: https://app.bluevine.com/login
+        target: newtab
+        id: 3_1102_banking
+  - name: 1. Home Lan Services
+    icon: fas fa-globe
+    displayData:
+      sortBy: default
+      rows: 3
+      cols: 3
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: Tlou
+        description: Synology Server
+        icon: synology.png
+        url: http://storage.local.kirbyware.com
+        target: newtab
+        id: 0_1703_tlou
+      - title: XOA
+        description: Xen Orchestra
+        icon: xoa-transparent.png
+        url: http://deb-xoa.local.kirbyware.com/
+        target: newtab
+        id: 1_1703_xoa
+      - title: Yates
+        description: pfSense Router
+        icon: hl-pfsense
+        url: http://yates.local.kirbyware.com/
+        target: newtab
+        id: 2_1703_yates
+      - title: Orion
+        description: Master Network Switch
+        icon: hl-hp
+        url: https://orion-ui.local.kirbyware.com/
+        target: newtab
+        id: 3_1703_orion
+      - title: Plex
+        description: plexpi Server
+        icon: hl-plexdrive
+        url: http://plexpi.local.kirbyware.com:32400/web/
+        target: newtab
+        id: 4_1703_plex
+      - title: Archer Router
+        description: Archer Router
+        url: >-
+          http://archer_ax6000.local.kirbyware.com/webpages/login.html?t=1620782041954
+        target: newtab
+        id: 5_1703_archerrouter
+      - title: TrueNAS
+        description: truenas Server
+        icon: si-truenas
+        url: https://nas.local.kirbyware.com
+        target: newtab
+        id: 6_1703_truenas
+      - title: Local XOA
+        description: xoa
+        icon: xoa-transparent.png
+        url: http://deb-xoa.local.kirbyware.com/
+        id: 7_1703_localxoa
+  - name: Getting Started
+    icon: fas fa-rocket
+    items:
+      - title: 2. Dashy Live
+        description: Development a project management links for Dashy
+        icon: https://i.ibb.co/qWWpD0v/astro-dab-128.png
+        url: https://live.dashy.to/
+        target: newtab
+        id: 0_1481_dashylive
+      - title: GitHub
+        description: Source Code, Issues and Pull Requests
+        url: https://github.com/lissy93/dashy
+        icon: favicon
+        id: 1_1481_github
+      - title: Docs
+        description: Configuring & Usage Documentation
+        provider: Dashy.to
+        icon: far fa-book
+        url: https://dashy.to/docs
+        id: 2_1481_docs
+      - title: Showcase
+        description: See how others are using Dashy
+        url: https://github.com/Lissy93/dashy/blob/master/docs/showcase.md
+        icon: far fa-grin-hearts
+        id: 3_1481_showcase
+      - title: Config Guide
+        description: See full list of configuration options
+        url: https://github.com/Lissy93/dashy/blob/master/docs/configuring.md
+        icon: fas fa-wrench
+        id: 4_1481_configguide
+      - title: Support
+        description: Get help with Dashy, raise a bug, or get in contact
+        url: https://github.com/Lissy93/dashy/blob/master/.github/SUPPORT.md
+        icon: far fa-hands-helping
+        id: 5_1481_support
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: true
+      hideForGuests: false
+  - name: Applications
+    icon: fas fa-window-restore
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: Islington Commons
+        description: Islington Commons Wordpress
+        icon: hl-wordpress
+        url: https://www.islingtoncommons.info/
+        target: newtab
+        id: 0_1255_islingtoncommons
+      - title: kirbymark.dev
+        description: kirbymark Personal Website
+        icon: https://www.kirbymark.dev/favicon-32x32.png
+        url: https://www.kirbymark.dev
+        target: newtab
+        id: 1_1255_kirbymarkdev
+  - name: Development Links
+    icon: fas fa-code
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: jsitor
+        description: jsitor.com
+        icon: >-
+          https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=http://jsitor.com&size=32
+        url: https://jsitor.com/
+        target: newtab
+        id: 0_1700_jsitor
+      - title: Github
+        description: Github - kirbymark
+        icon: github-mark-white.svg
+        url: https://github.com/kirbymark
+        target: newtab
+        id: 1_1700_github
+      - title: pixabay
+        description: Online images
+        icon: >-
+          https://t1.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://pixabay.com/&size=32
+        url: https://pixabay.com/
+        target: newtab
+        id: 2_1700_pixabay
+  - name: kirbyware.io GCP
+    icon: fas fa-clouds
+    displayData:
+      sortBy: default
+      rows: 1
+      cols: 1
+      collapsed: false
+      hideForGuests: false
+    items:
+      - title: Traefik
+        description: Traefik Reverse Proxy
+        icon: hl-traefik
+        url: https://traefik.kirbyware.io
+        target: newtab
+        id: 0_1488_traefik
+      - title: Cloud Console
+        description: Google Cloud Console
+        icon: googlecloud-color.svg
+        url: https://console.cloud.google.com/
+        target: newtab
+        id: 1_1488_cloudconsole
+      - title: looker studio
+        description: Google Looker Studio
+        icon: ':bar_chart:'
+        url: >-
+          https://lookerstudio.google.com/reporting/844ea9d9-0ab5-4056-98b6-f900ec233850/page/p_31jgaxtw5c
+        id: 2_1488_lookerstudio
+      - title: Vultr Account
+        description: My Vultr
+        icon: vultr-color.svg
+        url: https://my.vultr.com/
+        id: 3_1488_vultraccount
