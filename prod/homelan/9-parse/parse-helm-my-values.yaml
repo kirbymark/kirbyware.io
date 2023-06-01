@@ -15,7 +15,7 @@ global:
   ##   - myRegistryKeySecretName
   ##
   imagePullSecrets: []
-  storageClass: ""
+  storageClass: "cstor-csi-disk"
 
 ## @section Common Parameters
 ##
@@ -149,7 +149,7 @@ server:
   ## @param server.masterKey Parse server Master Key
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/parse#configuration
   ##
-  masterKey: ""
+  masterKey: "1234567890"
   ## @param server.extraEnvVars An array to add extra env vars
   ## For example:
   ## extraEnvVars:
@@ -397,7 +397,7 @@ server:
 dashboard:
   ## @param dashboard.enabled Enable parse dashboard
   ##
-  enabled: true
+  enabled: false
   ## Bitnami Parse Dashboard image version
   ## ref: https://hub.docker.com/r/bitnami/parse-dashboard/tags/
   ## @param dashboard.image.registry Dashboard image registry
@@ -479,7 +479,7 @@ dashboard:
   ## @param dashboard.appName Parse Dashboard application name
   ## ref: https://github.com/bitnami/containers/tree/main/bitnami/parse-dashboard#configuration
   ##
-  appName: MyDashboard
+  appName: AppDash
   ## @param dashboard.resources Parse Dashboard pods' resource requests and limits
   ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
   ##
@@ -664,7 +664,7 @@ dashboard:
   service:
     ## @param dashboard.service.type Kubernetes Service type
     ##
-    type: ClusterIP
+    type: LoadBalancer
     ## @param dashboard.service.ports.http Service HTTP port (Dashboard)
     ##
     ports:
@@ -988,3 +988,7 @@ mongodb:
     ##
     size: 8Gi
 
+  # metrics:
+  #   ## @param metrics.enabled Enable using a sidecar Prometheus exporter
+  #   ##
+  #   enabled: true

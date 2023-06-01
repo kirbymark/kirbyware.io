@@ -1,0 +1,72 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: parse-server-config
+  namespace: parse
+data:
+  config.json: |-
+    {
+        "appId": "YourAppId",
+        "masterKey": "1234567890",
+        "databaseURI": "mongodb://mongo-mongodb.parse.svc.cluster.local:27017/parse"
+      }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: parse-server-config-alt
+  namespace: parse
+data:
+  # property-like keys; each key maps to a simple value
+  PARSE_SERVER_DATABASE_URI: "mongodb://mongo-mongodb.parse.svc.cluster.local:27017/parse"
+  PARSE_SERVER_MASTER_KEY: "1234567890"
+  PARSE_SERVER_APP_ID: "YourAppId"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parse-server
+  namespace: parse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: parse-server
+  template:
+    metadata:
+      labels:
+        app: parse-server
+    spec:
+      containers:
+        - name: parse-server
+          image: parseplatform/parse-server:latest
+          ports:
+            - containerPort: 1337
+          volumeMounts:
+            - name: parse-server-config-volume
+              mountPath: /config
+          envFrom:
+            - configMapRef: 
+                name: parse-server-config-alt
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "500m"
+      volumes:
+        - name: parse-server-config-volume
+          configMap:
+            name: parse-server-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: parse-server-service
+  namespace: parse
+spec:
+  selector:
+    app: parse-server
+  ports:
+    - protocol: TCP
+      port: 1337
+      targetPort: 1337
+  type: ClusterIP

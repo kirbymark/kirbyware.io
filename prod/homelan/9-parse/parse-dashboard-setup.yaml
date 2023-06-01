@@ -1,0 +1,86 @@
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: parse-dashboard-config
+#   namespace: parse
+# data:
+#   parse-dashboard-config.json: |
+#     {
+#       "apps": [
+#         {
+#           "serverURL": "http://parse.parse:1337/parse",
+#           "appId": "MyAppID",
+#           "masterKey": "1234567890",
+#           "appName": "My Parse App"
+#         }
+#       ],
+#       "users": [
+#         {
+#           "user": "kirbymark",
+#           "pass": "nitters88"
+#         }
+#       ],
+#       "useEncryptedPasswords": false
+#     }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: parse-dashboard-config-alt
+  namespace: parse
+data:
+  # property-like keys; each key maps to a simple value
+  HOST: "0.0.0.0"
+  PORT: "4040"
+  MOUNT_PATH: "/"
+  PARSE_DASHBOARD_SERVER_URL: "http://10.111.89.130:1337/parse"
+  PARSE_DASHBOARD_MASTER_KEY: "1234567890"
+  PARSE_DASHBOARD_APP_ID: "MyAppID"
+  PARSE_DASHBOARD_APP_NAME: "MyApp"
+  PARSE_DASHBOARD_USER_ID: "user1"
+  PARSE_DASHBOARD_USER_PASSWORD: "pass"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: parse-dashboard
+  namespace: parse
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: parse-dashboard
+  template:
+    metadata:
+      labels:
+        app: parse-dashboard
+    spec:
+      containers:
+        - name: parse-dashboard
+          image: parseplatform/parse-dashboard:latest
+          ports:
+            - containerPort: 4040
+          volumeMounts:
+            - name: parse-dashboard-config-volume
+              mountPath: /bitnami/parse-dashboard/config
+          envFrom:
+            - configMapRef: 
+                name: parse-dashboard-config-alt
+      volumes:
+        - name: parse-dashboard-config-volume
+          # configMap:
+          #   name: parse-dashboard-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: parse-dashboard-service
+  namespace: parse
+spec:
+  selector:
+    app: parse-dashboard
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 4040
+  type: ClusterIP

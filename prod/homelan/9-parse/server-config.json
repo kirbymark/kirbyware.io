@@ -1,0 +1,5 @@
+{
+    "appId": "your-app-id",
+    "masterKey": "your-master-key",
+    "databaseURI": "mongodb://mongodb-service:27017/your-database-name"
+  }v

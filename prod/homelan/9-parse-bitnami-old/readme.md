@@ -7,7 +7,8 @@
 
 2.  Install 
     ```
-    helm install parse bitnami/parse --namespace=parse --create-namespace -f prod/homelan/9-parse-bitnami/my-values.yaml --set server.host=parse.parse,server.containerPorts.http=1337,server.masterKey=6ioakMgqY0,dashboard.username=kirbymark,dashboard.password=defaultpassword
+    kubectl apply -f prod/homelan/9-parse-bitnami/dashboard-configmap.yaml
+    helm install parse bitnami/parse --namespace=parse --create-namespace -f prod/homelan/9-parse-bitnami/new-values.yaml --set server.host=parse.parse,server.containerPorts.http=1337,server.masterKey=6ioakMgqY0,dashboard.username=kirbymark,dashboard.password=defaultpassword
     ```
 
 3.  Setup ingressroute 

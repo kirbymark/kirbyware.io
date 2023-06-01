@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: parse-dashboard
+data:
+  # property-like keys; each key maps to a simple value
+  PARSE_DASHBOARD_PARSE_HOST: "parse"
+  PARSE_DASHBOARD_PARSE_PORT_NUMBER: "1337"
+  PARSE_DASHBOARD_PARSE_APP_ID: "myappID"
+  PARSE_DASHBOARD_PARSE_APP_NAME: "myapp"
+  PARSE_DASHBOARD_PARSE_MASTER_KEY: ""
+  PARSE_DASHBOARD_USERNAME: "admin"
+  PARSE_DASHBOARD_PASSWORD:  "admin"
