@@ -33,12 +33,14 @@ data:
   HOST: "0.0.0.0"
   PORT: "4040"
   MOUNT_PATH: "/"
-  PARSE_DASHBOARD_SERVER_URL: "http://10.111.89.130:1337/parse"
+  # PARSE_DASHBOARD_SERVER_URL: "http://parse-server-service.parse:1337/parse"
+  PARSE_DASHBOARD_SERVER_URL: "http://10.104.154.123:1337/parse"
+  # PARSE_DASHBOARD_SERVER_URL: "http://parse-server-service.parse.svc.cluster.local:1337/parse"
   PARSE_DASHBOARD_MASTER_KEY: "1234567890"
-  PARSE_DASHBOARD_APP_ID: "MyAppID"
-  PARSE_DASHBOARD_APP_NAME: "MyApp"
-  PARSE_DASHBOARD_USER_ID: "user1"
-  PARSE_DASHBOARD_USER_PASSWORD: "pass"
+  PARSE_DASHBOARD_APP_ID: "YourAppId"
+  PARSE_DASHBOARD_APP_NAME: "YourApp"
+  PARSE_DASHBOARD_USER_ID: "user"
+  PARSE_DASHBOARD_USER_PASSWORD: "password"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -81,6 +83,6 @@ spec:
     app: parse-dashboard
   ports:
     - protocol: TCP
-      port: 80
+      port: 4040
       targetPort: 4040
   type: ClusterIP

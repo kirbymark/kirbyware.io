@@ -12,7 +12,7 @@
 
 2.  Start the Mongodb instance 
     ```
-    helm install mongo bitnami/mongodb --namespace parse -f prod/homelan/9-parse/mongo-helm-my-values.yaml --set auth.rootPassword=password
+    helm install mongo bitnami/mongodb --namespace parse -f prod/homelan/9-parse/mongo-helm-my-values.yaml --set auth.rootPassword=secretpassword,auth.username=user,auth.password=password,auth.database=admin
     ```
         NAME: mongo
         LAST DEPLOYED: Wed May 31 15:52:36 2023
@@ -46,6 +46,31 @@
 
             kubectl port-forward --namespace parse svc/mongo-mongodb 27017:27017 &
             mongosh --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD
+
+Need to create the database and user
+```
+kubectl run --namespace parse mongo-mongodb-client --rm --tty -i --restart='Never' --env="MONGODB_ROOT_PASSWORD=superpassword" --image docker.io/bitnami/mongodb:6.0.6-debian-11-r0 --command -- bash
+
+use parse
+db.createUser(
+   {
+     user: "user",
+     pwd: "password",  // Or  "<cleartext password>"
+     roles: [ "readWrite", "dbAdmin" ]
+   }
+)
+
+
+my_init_script.sh: | 
+  #!/bin/bash 
+  echo "Create Database and Relative Users." 
+  #Create New Users echo 'db.createUser({user:"${dbUser}",pwd:"${dbPassword}",roles:[{role:"dbAdmin", db:"${dbName}"}]});'> /tmp/crtuser.js 
+  chmod 755 /tmp/crtuser.js 
+  mongo admin -u 'root' -p '${rootPassword}' /tmp/crtuser.js 
+  #Insert Test Data 
+  echo 'db.${dbName}.insert({test:"ok",status:"success"});'> /tmp/insinfo.js 
+  chmod 755 /tmp/insinfo.js 
+  mongo ${dbName} -u '${dbUser}' -p '${dbPassword}' /tmp/insinfo.js
 
 
 

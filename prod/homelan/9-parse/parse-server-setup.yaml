@@ -4,23 +4,15 @@ metadata:
   name: parse-server-config
   namespace: parse
 data:
-  config.json: |-
+  default.json: |-
     {
         "appId": "YourAppId",
         "masterKey": "1234567890",
-        "databaseURI": "mongodb://mongo-mongodb.parse.svc.cluster.local:27017/parse"
+        "databaseURI": "mongodb://user:password@mongo-mongodb.parse:27017/parse",
+        "serverURL": "http://parse-server-service.parse.svc.cluster.loca:1337/parse"
       }
 ---
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: parse-server-config-alt
-  namespace: parse
-data:
-  # property-like keys; each key maps to a simple value
-  PARSE_SERVER_DATABASE_URI: "mongodb://mongo-mongodb.parse.svc.cluster.local:27017/parse"
-  PARSE_SERVER_MASTER_KEY: "1234567890"
-  PARSE_SERVER_APP_ID: "YourAppId"
+# "databaseURI": "mongodb://mongo-mongodb.parse.svc.cluster.local:27017/parse"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -40,14 +32,15 @@ spec:
       containers:
         - name: parse-server
           image: parseplatform/parse-server:latest
+          args: ["/config/default.json"]
           ports:
             - containerPort: 1337
           volumeMounts:
             - name: parse-server-config-volume
               mountPath: /config
-          envFrom:
-            - configMapRef: 
-                name: parse-server-config-alt
+          # envFrom:
+          #   - configMapRef: 
+          #       name: parse-server-config-alt
           resources:
             limits:
               memory: "512Mi"
