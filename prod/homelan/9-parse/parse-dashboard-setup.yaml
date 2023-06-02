@@ -10,8 +10,8 @@ data:
       "apps": [
         {
           "serverURL": "https://parse.kirbyware.com/parse",
-          "appId": "$(SECRET_APPID)",
-          "masterKey": "$(SECRET_MASTERKEY)",
+          "appId": "jXX2j8Xk",
+          "masterKey": "0gZxQss8GGysgaDY",
           "appName": "My Parse App"
         }
       ],

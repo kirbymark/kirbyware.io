@@ -76,7 +76,7 @@ my_init_script.sh: |
 
 4. create the Parse Server
     ```
-    cypher_inplace parse-server-secrets.yaml 
+    sops -d prod/homelan/9-parse/parse-server-secrets.enc.yaml > prod/homelan/9-parse/parse-server-secrets.yaml 
     kubectl apply -f prod/homelan/9-parse/parse-server-secrets.yaml
     kubectl apply -f prod/homelan/9-parse/parse-server-setup.yaml
     ```
@@ -86,9 +86,15 @@ my_init_script.sh: |
     kubectl -n parse get all
     kubectl -n parse logs parse-server-59ddbf7b84-xf74x
 
+
+
     kubectl -n parse logs parse-server-59ddbf7b84-xf74x
+
+   export SECRET_APPID=$(kubectl get secret -n parse parse-server-secrets -o jsonpath="{.data.APP_ID}" | base64 -d)
+   export SECRET_MASTERKEY=$(kubectl get secret -n parse parse-server-secrets -o jsonpath="{.data.MASTER_KEY}" | base64 -d)
+
     curl -X POST \
-        -H "X-Parse-Application-Id: myappID" \
+        -H "X-Parse-Application-Id: jXX2j8Xk" \
         -H "Content-Type: application/json" \
         -d '{"score":1344,"playerName":"Sean Plott","cheatMode":false}' \
         https://parse.kirbyware.com/parse/classes/GameScore

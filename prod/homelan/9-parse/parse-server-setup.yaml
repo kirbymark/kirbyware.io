@@ -6,8 +6,8 @@ metadata:
 data:
   default.json: |-
     {
-        "appId": "$(SECRET_APPID)",
-        "masterKey": "$(SECRET_MASTERKEY)",
+        "appId": "jXX2j8Xk",
+        "masterKey": "0gZxQss8GGysgaDY",
         "databaseURI": "mongodb://user:password@mongo-mongodb.parse:27017/parse",
         "serverURL": "https://parse.kirbyware.com/parse",
         "masterKeyIps": "10.10.0.0/16",
