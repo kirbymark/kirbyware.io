@@ -10,6 +10,7 @@ data:
       "apps": [
         {
           "serverURL": "https://parse.kirbyware.com/parse",
+          "graphQLServerURL": "https://parse.kirbyware.com/graphql",
           "appId": "jXX2j8Xk",
           "masterKey": "0gZxQss8GGysgaDY",
           "appName": "My Parse App"
