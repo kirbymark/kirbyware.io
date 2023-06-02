@@ -1,0 +1,67 @@
+{
+    "domain": "",
+    "domain_id": "2610361398_DOMAIN_COM-VRSN",
+    "status": "clientTransferProhibited https://icann.org/epp#clientTransferProhibited",
+    "create_date": "2021-05-07T12:19:20.00Z",
+    "update_date": "2023-04-07T08:02:51.25Z",
+    "expire_date": "2024-05-07T12:19:20.00Z",
+    "domain_age": 756,
+    "whois_server": "whois.namecheap.com",
+    "registrar": {
+      "iana_id": "1068",
+      "name": "NAMECHEAP INC",
+      "url": "http://www.namecheap.com"
+    },
+    "registrant": {
+      "name": "Redacted for Privacy",
+      "organization": "Privacy service provided by Withheld for Privacy ehf",
+      "street_address": "Kalkofnsvegur 2",
+      "city": "Reykjavik",
+      "region": "Capital Region",
+      "zip_code": "101",
+      "country": "IS",
+      "phone": "+354.4212434",
+      "fax": "",
+      "email": "c8aa7b763bf34325b8eae23261143fa0.protect@withheldforprivacy.com"
+    },
+    "admin": {
+      "name": "Redacted for Privacy",
+      "organization": "Privacy service provided by Withheld for Privacy ehf",
+      "street_address": "Kalkofnsvegur 2",
+      "city": "Reykjavik",
+      "region": "Capital Region",
+      "zip_code": "101",
+      "country": "IS",
+      "phone": "+354.4212434",
+      "fax": "",
+      "email": "c8aa7b763bf34325b8eae23261143fa0.protect@withheldforprivacy.com"
+    },
+    "tech": {
+      "name": "Redacted for Privacy",
+      "organization": "Privacy service provided by Withheld for Privacy ehf",
+      "street_address": "Kalkofnsvegur 2",
+      "city": "Reykjavik",
+      "region": "Capital Region",
+      "zip_code": "101",
+      "country": "IS",
+      "phone": "+354.4212434",
+      "fax": "",
+      "email": "c8aa7b763bf34325b8eae23261143fa0.protect@withheldforprivacy.com"
+    },
+    "billing": {
+      "name": "",
+      "organization": "",
+      "street_address": "",
+      "city": "",
+      "region": "",
+      "zip_code": "",
+      "country": "",
+      "phone": "",
+      "fax": "",
+      "email": ""
+    },
+    "nameservers": [
+      "aurora.ns.cloudflare.com",
+      "drake.ns.cloudflare.com"
+    ]
+  }

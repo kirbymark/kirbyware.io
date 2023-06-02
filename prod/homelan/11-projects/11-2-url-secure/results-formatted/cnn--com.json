@@ -1,0 +1,69 @@
+{
+    "domain": "cnn.com",
+    "domain_id": "3269879_DOMAIN_COM-VRSN",
+    "status": "clientTransferProhibited http://www.icann.org/epp#clientTransferProhibited",
+    "create_date": "1993-09-22T00:00:00.000-04:00",
+    "update_date": "2020-10-20T13:09:44Z",
+    "expire_date": "2026-09-21T00:00:00.000-04:00",
+    "domain_age": 10845,
+    "whois_server": "whois.corporatedomains.com",
+    "registrar": {
+        "iana_id": "299",
+        "name": "CSC CORPORATE DOMAINS, INC.",
+        "url": "www.cscprotectsbrands.com"
+    },
+    "registrant": {
+        "name": "Domain Name Manager",
+        "organization": "Turner Broadcasting System, Inc.",
+        "street_address": "One CNN Center",
+        "city": "Atlanta",
+        "region": "GA",
+        "zip_code": "30303",
+        "country": "US",
+        "phone": "+1.4048275000",
+        "fax": "+1.4048271995",
+        "email": "tmgroup@turner.com"
+    },
+    "admin": {
+        "name": "Domain Name Manager",
+        "organization": "Turner Broadcasting System, Inc.",
+        "street_address": "One CNN Center",
+        "city": "Atlanta",
+        "region": "GA",
+        "zip_code": "30303",
+        "country": "US",
+        "phone": "+1.4048275000",
+        "fax": "+1.4048271995",
+        "email": "tmgroup@turner.com"
+    },
+    "tech": {
+        "name": "TBS Server Operations",
+        "organization": "Turner Broadcasting System, Inc.",
+        "street_address": "One CNN Center",
+        "city": "Atlanta",
+        "region": "GA",
+        "zip_code": "30303",
+        "country": "US",
+        "phone": "+1.4048275000",
+        "fax": "+1.4048271593",
+        "email": "hostmaster@turner.com"
+    },
+    "billing": {
+        "name": "",
+        "organization": "",
+        "street_address": "",
+        "city": "",
+        "region": "",
+        "zip_code": "",
+        "country": "",
+        "phone": "",
+        "fax": "",
+        "email": ""
+    },
+    "nameservers": [
+        "ns-1086.awsdns-07.org",
+        "ns-1630.awsdns-11.co.uk",
+        "ns-47.awsdns-05.com",
+        "ns-576.awsdns-08.net"
+    ]
+}

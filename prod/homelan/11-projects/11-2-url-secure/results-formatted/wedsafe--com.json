@@ -1,0 +1,67 @@
+{
+    "domain": "wedsafe.com",
+    "domain_id": "14741689_DOMAIN_COM-VRSN",
+    "status": "clientTransferProhibited http://www.icann.org/epp#clientTransferProhibited",
+    "create_date": "1999-12-06T21:03:37Z",
+    "update_date": "2022-12-03T01:17:26Z",
+    "expire_date": "2023-12-07T02:03:36Z",
+    "domain_age": 8579,
+    "whois_server": "whois.corporatedomains.com",
+    "registrar": {
+        "iana_id": "299",
+        "name": "CSC CORPORATE DOMAINS, INC.",
+        "url": "www.cscprotectsbrands.com"
+    },
+    "registrant": {
+        "name": "Aon Corporation",
+        "organization": "Aon Corporation",
+        "street_address": "200 E Randolph Drive",
+        "city": "Chicago",
+        "region": "IL",
+        "zip_code": "60601",
+        "country": "US",
+        "phone": "+1.866266436",
+        "fax": "+1.866266436",
+        "email": "dns_master@aon.com"
+    },
+    "admin": {
+        "name": "Aon Corporation",
+        "organization": "Aon Corporation",
+        "street_address": "200 E Randolph Drive",
+        "city": "Chicago",
+        "region": "IL",
+        "zip_code": "60601",
+        "country": "US",
+        "phone": "+1.866266436",
+        "fax": "+1.866266436",
+        "email": "dns_master@aon.com"
+    },
+    "tech": {
+        "name": "Aon Corporation",
+        "organization": "Aon Corporation",
+        "street_address": "200 E Randolph Drive",
+        "city": "Chicago",
+        "region": "IL",
+        "zip_code": "60601",
+        "country": "US",
+        "phone": "+1.866266436",
+        "fax": "+1.866266436",
+        "email": "dns_master@aon.com"
+    },
+    "billing": {
+        "name": "",
+        "organization": "",
+        "street_address": "",
+        "city": "",
+        "region": "",
+        "zip_code": "",
+        "country": "",
+        "phone": "",
+        "fax": "",
+        "email": ""
+    },
+    "nameservers": [
+        "gabe.ns.cloudflare.com",
+        "jacqueline.ns.cloudflare.com"
+    ]
+}
