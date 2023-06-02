@@ -1,0 +1,67 @@
+{
+    "domain": "",
+    "domain_id": "2727410075_DOMAIN_COM-VRSN",
+    "status": "clientTransferProhibited https://icann.org/epp#clientTransferProhibited",
+    "create_date": "2022-09-23T18:49:05.00Z",
+    "update_date": "0001-01-01T00:00:00.00Z",
+    "expire_date": "2023-09-23T18:49:05.00Z",
+    "domain_age": 252,
+    "whois_server": "whois.namecheap.com",
+    "registrar": {
+        "iana_id": "1068",
+        "name": "NAMECHEAP INC",
+        "url": "http://www.namecheap.com"
+    },
+    "registrant": {
+        "name": "Redacted for Privacy",
+        "organization": "Privacy service provided by Withheld for Privacy ehf",
+        "street_address": "Kalkofnsvegur 2",
+        "city": "Reykjavik",
+        "region": "Capital Region",
+        "zip_code": "101",
+        "country": "IS",
+        "phone": "+354.4212434",
+        "fax": "",
+        "email": "d6b20a54db5541cf8251695809101de3.protect@withheldforprivacy.com"
+    },
+    "admin": {
+        "name": "Redacted for Privacy",
+        "organization": "Privacy service provided by Withheld for Privacy ehf",
+        "street_address": "Kalkofnsvegur 2",
+        "city": "Reykjavik",
+        "region": "Capital Region",
+        "zip_code": "101",
+        "country": "IS",
+        "phone": "+354.4212434",
+        "fax": "",
+        "email": "d6b20a54db5541cf8251695809101de3.protect@withheldforprivacy.com"
+    },
+    "tech": {
+        "name": "Redacted for Privacy",
+        "organization": "Privacy service provided by Withheld for Privacy ehf",
+        "street_address": "Kalkofnsvegur 2",
+        "city": "Reykjavik",
+        "region": "Capital Region",
+        "zip_code": "101",
+        "country": "IS",
+        "phone": "+354.4212434",
+        "fax": "",
+        "email": "d6b20a54db5541cf8251695809101de3.protect@withheldforprivacy.com"
+    },
+    "billing": {
+        "name": "",
+        "organization": "",
+        "street_address": "",
+        "city": "",
+        "region": "",
+        "zip_code": "",
+        "country": "",
+        "phone": "",
+        "fax": "",
+        "email": ""
+    },
+    "nameservers": [
+        "aurora.ns.cloudflare.com",
+        "drake.ns.cloudflare.com"
+    ]
+}
