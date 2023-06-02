@@ -5,14 +5,9 @@
     kubectl apply -f prod/homelan/9-parse/namespace.yaml
     ```
 
-1b.  Label the nodes
-    ```
-    kubectl label nodes lkw-node00 lkw-node01 lkw-node02 lkw-node03 lkw-node04 lkw-node05 lkw-node06 lkw-node07 size=large
-    ```
-
 2.  Start the Mongodb instance 
     ```
-    helm install mongo bitnami/mongodb --namespace parse -f prod/homelan/9-parse/mongo-helm-my-values.yaml --set auth.rootPassword=secretpassword,auth.username=user,auth.password=password,auth.database=admin
+    helm install mongo bitnami/mongodb --namespace parse -f prod/homelan/9-parse/mongo-helm-my-values.yaml
     ```
         NAME: mongo
         LAST DEPLOYED: Wed May 31 15:52:36 2023
@@ -47,20 +42,27 @@
             kubectl port-forward --namespace parse svc/mongo-mongodb 27017:27017 &
             mongosh --host 127.0.0.1 --authenticationDatabase admin -p $MONGODB_ROOT_PASSWORD
 
-Need to create the database and user
-```
-kubectl run --namespace parse mongo-mongodb-client --rm --tty -i --restart='Never' --env="MONGODB_ROOT_PASSWORD=superpassword" --image docker.io/bitnami/mongodb:6.0.6-debian-11-r0 --command -- bash
 
-use parse
-db.createUser(
-   {
-     user: "user",
-     pwd: "password",  // Or  "<cleartext password>"
-     roles: [ "readWrite", "dbAdmin" ]
-   }
-)
+3. Create Mongo database and user
+   Need to create the database and user
+    ```
+    export MONGODB_ROOT_PASSWORD=$(kubectl get secret --namespace parse mongo-mongodb -o jsonpath="{.data.mongodb-root-password}" | base64 -d)
+    kubectl run --namespace parse mongo-mongodb-client --rm --tty -i --restart='Never' --env="MONGODB_ROOT_PASSWORD=superpassword" --image docker.io/bitnami/mongodb:6.0.6-debian-11-r0 --command -- bash
+    mongosh admin --host "mongo-mongodb" --authenticationDatabase admin -u root -p $MONGODB_ROOT_PASSWORD
 
+    use parse
+    db.createUser(
+    {
+        user: "user",
+        pwd: "password",  // Or  "<cleartext password>"
+        roles: [ "readWrite", "dbAdmin" ]
+    }
+    )
+    exit
+    exit
+    ```
 
+Another way to create the database and user - using init scripts -- I have not tried this yet
 my_init_script.sh: | 
   #!/bin/bash 
   echo "Create Database and Relative Users." 
@@ -72,29 +74,17 @@ my_init_script.sh: |
   chmod 755 /tmp/insinfo.js 
   mongo ${dbName} -u '${dbUser}' -p '${dbPassword}' /tmp/insinfo.js
 
-
-
-3. Start the Parse instance 
+4. create the Parse Server
     ```
-    helm install parse bitnami/parse --namespace parse -f prod/homelan/9-parse/parse-helm-my-values.yaml
+    kubectl apply -f prod/homelan/9-parse/parse-server-setup.yaml
     ```
 
-3. Start the Parse Dashboard 
+5. check the parse server is running
     ```
-    kubectl apply -f prod/homelan/9-parse/parse-dashboard-setup.yaml
-    ```
+    kubectl -n parse get all
+    kubectl -n parse logs parse-server-59ddbf7b84-xf74x
 
-
-
-
-3.  Setup ingressroute 
-    Add an alias to the pfSense DNS resolver
-    ```
-    kubectl apply -f prod/homelan/9-parse-bitnami/ingress-route-tls.yaml
-    ```
-
-    Test the backend
-    ```
+    kubectl -n parse logs parse-server-59ddbf7b84-xf74x
     curl -X POST \
         -H "X-Parse-Application-Id: myappID" \
         -H "Content-Type: application/json" \
@@ -102,10 +92,60 @@ my_init_script.sh: |
         https://parse.kirbyware.com/parse/classes/GameScore
     ```
 
-    Access the dash
+
+6. create the Parse dashboard
+    ```
+    kubectl apply -f prod/homelan/9-parse/parse-dashboard-setup.yaml
+    ```
+
+7.  Setup ingressroute 
+
+    7.1 Add needed aliases to the pfSense DNS resolver
+
+    7.2 Apply the ingress routes
+    ```
+    kubectl apply -f prod/homelan/9-parse/ingress-route-tls.yaml
+    ```
+
+8.  Test Connection to services
+    
+    8.1 Test Mongo connection via local port forwarding
+    ```
+    kubectl port-forward --namespace parse svc/mongo-mongodb 27017:27017
+    mongosh admin --host "localhost" --authenticationDatabase admin -u root -p superpassword
+    ```
+
+    8.2 Test Parse Server Connection via ingress route
+    ```
+    curl -X POST \
+        -H "X-Parse-Application-Id: YourAppId" \
+        -H "Content-Type: application/json" \
+        -d '{"score":1344,"playerName":"Sean Plott","cheatMode":false}' \
+        https://parse.kirbyware.com/parse/classes/GameScore
+    ```
+
+    8.3 Test Parse Dashboard Connection via ingress route
+    ```
+    curl https://parse-ui.kirbyware.com/
+    ```
+
+
+    8.4 Access the dashboard
     ```
     https://parse-ui.kirbyware.com/
     ```
+
+
+
+    
+----
+# Cleanup
+----
+Cleanup all resources
+```
+
+```
+
 
 ----
 # OTHER

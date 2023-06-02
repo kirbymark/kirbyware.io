@@ -9,10 +9,18 @@ data:
         "appId": "YourAppId",
         "masterKey": "1234567890",
         "databaseURI": "mongodb://user:password@mongo-mongodb.parse:27017/parse",
-        "serverURL": "http://parse-server-service.parse.svc.cluster.loca:1337/parse"
+        "serverURL": "http://parse-server.parse:1337/parse",
+        "masterKeyIps": "10.10.0.0/16"
       }
 ---
-# "databaseURI": "mongodb://mongo-mongodb.parse.svc.cluster.local:27017/parse"
+# apiVersion: v1
+# kind: ConfigMap
+# metadata:
+#   name: parse-server-config-alt
+#   namespace: parse
+# data:
+#   # property-like keys; each key maps to a simple value
+#   PARSE_SERVER_MASTER_KEY_IPS: "10.10.0.0/16"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -33,6 +41,7 @@ spec:
         - name: parse-server
           image: parseplatform/parse-server:latest
           args: ["/config/default.json"]
+          # args: ["/config/default.json", "--masterKeyIps 10.10.0.132"]
           ports:
             - containerPort: 1337
           volumeMounts:
@@ -53,7 +62,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: parse-server-service
+  name: parse-server
   namespace: parse
 spec:
   selector:
