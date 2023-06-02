@@ -9,7 +9,7 @@ data:
         "appId": "YourAppId",
         "masterKey": "1234567890",
         "databaseURI": "mongodb://user:password@mongo-mongodb.parse:27017/parse",
-        "serverURL": "http://parse-server.parse:1337/parse",
+        "serverURL": "https://parse.kirbyware.com/parse",
         "masterKeyIps": "10.10.0.0/16"
       }
 ---
