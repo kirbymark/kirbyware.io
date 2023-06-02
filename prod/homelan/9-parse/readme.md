@@ -122,7 +122,14 @@ my_init_script.sh: |
         -H "Content-Type: application/json" \
         -d '{"score":1344,"playerName":"Sean Plott","cheatMode":false}' \
         https://parse.kirbyware.com/parse/classes/GameScore
+
+        curl -X GET \
+        -H "X-Parse-Application-Id: YourAppId" \
+        https://parse.kirbyware.com/parse/classes/GameScore
     ```
+
+
+
 
     8.3 Test Parse Dashboard Connection via ingress route
     ```
@@ -137,7 +144,7 @@ my_init_script.sh: |
 
 
 
-    
+
 ----
 # Cleanup
 ----
