@@ -18,6 +18,22 @@ providers:
     enabled: true
     allowCrossNamespace: true
 
+# ports:
+#   web:
+#     forwardedHeaders:
+#       trustedIPs: 
+#       - 0.0.0.0/0
+#     proxyProtocol:
+#       trustedIPs: 
+#       - 0.0.0.0/0
+#   websecure:
+#     forwardedHeaders:
+#       trustedIPs: 
+#       - 0.0.0.0/0
+#     proxyProtocol:
+#       trustedIPs: 
+#       - 0.0.0.0/0
+
 # Options for the main traefik service, where the entrypoints traffic comes
 # from.
 service:
