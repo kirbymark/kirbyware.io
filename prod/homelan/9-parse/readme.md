@@ -76,6 +76,8 @@ my_init_script.sh: |
 
 4. create the Parse Server
     ```
+    cypher_inplace parse-server-secrets.yaml 
+    kubectl apply -f prod/homelan/9-parse/parse-server-secrets.yaml
     kubectl apply -f prod/homelan/9-parse/parse-server-setup.yaml
     ```
 

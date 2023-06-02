@@ -6,11 +6,13 @@ metadata:
 data:
   default.json: |-
     {
-        "appId": "YourAppId",
-        "masterKey": "1234567890",
+        "appId": "$(SECRET_APPID)",
+        "masterKey": "$(SECRET_MASTERKEY)",
         "databaseURI": "mongodb://user:password@mongo-mongodb.parse:27017/parse",
         "serverURL": "https://parse.kirbyware.com/parse",
-        "masterKeyIps": "10.10.0.0/16"
+        "masterKeyIps": "10.10.0.0/16",
+        "mountGraphQL": true,
+        "mountPlayground": true
       }
 ---
 # apiVersion: v1
@@ -47,6 +49,9 @@ spec:
           volumeMounts:
             - name: parse-server-config-volume
               mountPath: /config
+          envFrom:
+            - secretRef:
+                name: parse-server-secrets
           # envFrom:
           #   - configMapRef: 
           #       name: parse-server-config-alt

@@ -10,8 +10,8 @@ data:
       "apps": [
         {
           "serverURL": "https://parse.kirbyware.com/parse",
-          "appId": "YourAppId",
-          "masterKey": "1234567890",
+          "appId": "$(SECRET_APPID)",
+          "masterKey": "$(SECRET_MASTERKEY)",
           "appName": "My Parse App"
         }
       ],
@@ -66,6 +66,9 @@ spec:
             - name: parse-dashboard-config-volume
               mountPath: /src/Parse-Dashboard/parse-dashboard-config.json
               subPath: "parse-dashboard-config.json"
+          envFrom:
+            - secretRef:
+                name: parse-server-secrets
       volumes:
         - name: parse-dashboard-config-volume
           configMap:
