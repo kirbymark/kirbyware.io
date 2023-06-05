@@ -17,7 +17,7 @@ spec:
         namespace: parse
         port: 1337
   tls:
-    secretName: test-kirbyware-com-production-tls
+    secretName: parse-kirbyware-com-production-tls
 ---
 apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
@@ -38,4 +38,4 @@ spec:
         namespace: parse
         port: 4040
   tls:
-    secretName: test-kirbyware-com-production-tls
+    secretName: parse-ui-kirbyware-com-production-tls
