@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: parse-kirbyware-com-production
+  namespace: traefik
+spec:
+  secretName: parse-kirbyware-com-production-tls
+  dnsNames:
+    - "parse.kirbyware.com"
+  issuerRef:
+    name: cloudflare-production
+    kind: Issuer
