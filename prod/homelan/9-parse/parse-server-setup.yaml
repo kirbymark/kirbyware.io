@@ -9,7 +9,8 @@ data:
         "appId": "jXX2j8Xk",
         "masterKey": "0gZxQss8GGysgaDY",
         "databaseURI": "mongodb://user:password@mongo-mongodb.parse:27017/parse",
-        "serverURL": "https://parse.kirbyware.com/parse",
+        "serverURL": "http://127.0.0.1:1337/parse",
+        "publicServerURL": "https://parse.kirbyware.com/parse",
         "masterKeyIps": "10.10.0.0/16",
         "mountGraphQL": true,
         "mountPlayground": true
@@ -42,13 +43,13 @@ spec:
       containers:
         - name: parse-server
           image: parseplatform/parse-server:latest
-          args: ["/config/default.json"]
+          args: ["/parse-server/config/default.json"]
           # args: ["/config/default.json", "--masterKeyIps 10.10.0.132"]
           ports:
             - containerPort: 1337
           volumeMounts:
             - name: parse-server-config-volume
-              mountPath: /config
+              mountPath: /parse-server/config/
           envFrom:
             - secretRef:
                 name: parse-server-secrets
