@@ -98,6 +98,10 @@ my_init_script.sh: |
         -H "Content-Type: application/json" \
         -d '{"score":1344,"playerName":"Sean Plott","cheatMode":false}' \
         https://parse.kirbyware.com/parse/classes/GameScore
+
+
+    curl https://parse.kirbyware.com/parse/health    
+    
     ```
 
 
