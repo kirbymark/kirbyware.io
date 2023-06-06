@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
-import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList } from 'react-native';
+import uuid from 'react-native-uuid';
 
 export default function App() {
   const [enteredGoalText, setEnteredGoalText] = useState('');
@@ -13,7 +14,7 @@ export default function App() {
   function addGoalHandler () {
     setCourseGoals(currentCourseGoals => [
       ...currentCourseGoals, 
-      enteredGoalText,
+      {text: enteredGoalText, key: uuid.v4()},
     ]);
   };
 
@@ -26,7 +27,16 @@ export default function App() {
       </View>
       <View style={styles.goalsContainer}>
         <Text style={{fontWeight: 'bold', fontSize: 14}}>My course goals are:</Text>
-        {courseGoals.map((goal) =><Text style={styles.listItems} key={goal}>{'\u2010'} {goal}</Text> )}
+        <FlatList 
+          data={courseGoals} 
+          renderItem={(itemData) => { 
+            return (
+              <View style={[styles.listItems, styles.shadow]}>
+                <Text>{'\u2010'} {itemData.item.text}</Text>
+              </View>
+            );
+          }}
+        /> 
       </View>
     </View>
   );
@@ -35,24 +45,21 @@ export default function App() {
 const styles = StyleSheet.create({
   appContainer: {
     flex: 1,
-    backgroundColor: '#1f3',
-    paddingTop: 20,
+    paddingTop: 40,
     paddingHorizontal: 16,
-  },
-  textstyle1: {
-    margin: 16, 
-    borderWidth: 1, 
-    borderColor: 'orange', 
-    padding: 16,
+    backgroundColor: '#cef5c2',
   },
   inputContainer: {
     flexDirection: 'row',
-    flex : 1,
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
+    marginBottom: 25,
+    backgroundColor: '#dfeeb4',
+    borderRadius: 6,
+    borderColor: '#016d30',
+    borderWidth: 4,
+    padding: 16,
+    margin: 8,
   },
   goalsContainer: {
     flex: 5,
@@ -62,10 +69,21 @@ const styles = StyleSheet.create({
     borderColor: '#cccccc',
     width: '70%',
     marginRight: 8,
-    padding: 8,
+    padding: 6,
   },  
   listItems: {
-    padding: 3,
+    margin: 8,
+    padding: 8,
+    borderRadius: 6,
+    backgroundColor: '#42ad38',
     fontWeight: '400',
+    color: 'white',
+  },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,  
+    elevation: 5
   },
 });
