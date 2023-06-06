@@ -36,28 +36,31 @@ export default function App() {
   };
 
   return (
-    <View style={styles.appContainer}>
-      <Button title="Add New Goal" color="#599284" onPress={startAddGoalHandler}/>
+    <>
+      <StatusBar style="dark" />
+      <View style={styles.appContainer}>
+        <Button title="Add New Goal" color="#42ad38" onPress={startAddGoalHandler}/>
 
-      <GoalInput 
-        visible={modalIsVisible} 
-        onAddGoal={addGoalHandler} 
-        onCancel={endAddGoalHandler}/>
+        <GoalInput 
+          visible={modalIsVisible} 
+          onAddGoal={addGoalHandler} 
+          onCancel={endAddGoalHandler}/>
 
-      <View style={styles.goalsContainer}>
-        <Text style={{fontWeight: 'bold', fontSize: 14}}>My course goals are:</Text>
-        <FlatList 
-          data={courseGoals} 
-          renderItem={(itemData) => { 
-            return <GoalItem 
-                      text={itemData.item.text} 
-                      uuid={itemData.item.uuid} 
-                      onDeleteItem={deleteGoalHandler}
-                    />;
-          }}
-        /> 
+        <View style={styles.goalsContainer}>
+          <Text style={{fontWeight: 'bold', fontSize: 14}}>My course goals are:</Text>
+          <FlatList 
+            data={courseGoals} 
+            renderItem={(itemData) => { 
+              return <GoalItem 
+                        text={itemData.item.text} 
+                        uuid={itemData.item.uuid} 
+                        onDeleteItem={deleteGoalHandler}
+                      />;
+            }}
+          /> 
+        </View>
       </View>
-    </View>
+    </>
   );
 }
 
