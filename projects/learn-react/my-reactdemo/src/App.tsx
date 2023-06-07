@@ -16,6 +16,10 @@ function App() {
     console.log(item);
   };
 
+  const handleButtonClick = () => {
+    console.log("Button clicked");
+  }
+
   return (
     <div>
 
@@ -55,7 +59,9 @@ function App() {
       <Divider role="presentation">
         <Chip label="Button" />
       </Divider>
-      <Button label="Button" type="link" />
+      <Button type="primary" onButtonClicked={handleButtonClick}>
+        Clickme
+      </Button>
 
     </div>
   );
