@@ -1,6 +1,6 @@
 interface Props {
   children: string;
-  type: string;
+  type?:  "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark" | "link";
   onButtonClicked: () => void;
 }
 
@@ -16,11 +16,12 @@ const addedClasses: { [key: string]: string } = {
   link: "btn btn-link",
 };
 
-const Button = ({ children, type, onButtonClicked }: Props) => {
+const Button = ({ children, type = "primary", onButtonClicked }: Props) => {
   return (
     <button
       type="button"
-      className={addedClasses[type]}
+    //   className={addedClasses[type]}
+      className={"btn btn-" + type}
       onClick={onButtonClicked}
     >
       {children}

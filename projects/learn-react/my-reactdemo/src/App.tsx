@@ -59,8 +59,17 @@ function App() {
       <Divider role="presentation">
         <Chip label="Button" />
       </Divider>
-      <Button type="primary" onButtonClicked={handleButtonClick}>
-        Clickme
+      <Button type="secondary" onButtonClicked={handleButtonClick}>
+        Primary
+      </Button>
+      <Button onButtonClicked={handleButtonClick}>
+        Default Button
+      </Button>
+      <Button type="link" onButtonClicked={handleButtonClick}>
+        Link
+      </Button>
+      <Button type="dark" onButtonClicked={handleButtonClick}>
+        Dark
       </Button>
 
     </div>
