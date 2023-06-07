@@ -21,9 +21,7 @@ const Button = ({ children, type, onButtonClicked }: Props) => {
     <button
       type="button"
       className={addedClasses[type]}
-      onClick={() => {
-        onButtonClicked();
-      }}
+      onClick={onButtonClicked}
     >
       {children}
     </button>
