@@ -20,6 +20,10 @@ function App() {
     console.log("Button clicked");
   }
 
+  const handleAlertButtonClick = () => {
+    console.log("Button clicked for alert");
+  }
+
   return (
     <div>
 
@@ -51,27 +55,42 @@ function App() {
       <Divider role="presentation">
         <Chip label="Alert" />
       </Divider>
-      <Alert> 
+      <Alert dismissible={false}> 
         Hello - 
         <span>This is an alert</span>
       </Alert>
 
+      <Box
+        sx={{
+          width: "100%",
+          height: 30,
+        }}
+      />
+
       <Divider role="presentation">
         <Chip label="Button" />
       </Divider>
-      <Button type="secondary" onButtonClicked={handleButtonClick}>
-        Primary
+      <Button color="secondary" type="default" onButtonClicked={handleButtonClick}>
+        Secondary
       </Button>
-      <Button onButtonClicked={handleButtonClick}>
-        Default Button
-      </Button>
-      <Button type="link" onButtonClicked={handleButtonClick}>
-        Link
-      </Button>
-      <Button type="dark" onButtonClicked={handleButtonClick}>
+      <Button color="dark" type="default" onButtonClicked={handleButtonClick}>
         Dark
       </Button>
 
+
+      <Box
+        sx={{
+          width: "100%",
+          height: 30,
+        }}
+      />
+      
+      <Divider role="presentation">
+        <Chip label="Button with Alert" />
+      </Divider>
+      <Button type="alert" onButtonClicked={handleAlertButtonClick}>
+        Alert Button
+      </Button>
     </div>
   );
 }
