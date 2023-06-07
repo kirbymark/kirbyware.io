@@ -1,5 +1,6 @@
 import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
+import Button from "./components/Button";
 import { Divider, Chip, Box } from "@mui/material";
 
 function App() {
@@ -17,24 +18,45 @@ function App() {
 
   return (
     <div>
+
+
+      <Box
+        sx={{
+          width: "100%",
+          height: 30,
+        }}
+      />
+      <Divider role="presentation">
+        <Chip label="List Group" />
+      </Divider>
       <ListGroup
         items={items}
         heading="Cities"
         onSelectItem={handleSelectItem}
       />
+
+
       <Box
         sx={{
           width: "100%",
-          backgroundColor: "grey",
-          height: 100,
+          height: 30,
         }}
       />
-      <Divider>
-        <Chip label="CHIP" />
+
+
+      <Divider role="presentation">
+        <Chip label="Alert" />
       </Divider>
-      <Alert>
+      <Alert> 
+        Hello - 
         <span>This is an alert</span>
       </Alert>
+
+      <Divider role="presentation">
+        <Chip label="Button" />
+      </Divider>
+      <Button label="Button" type="link" />
+
     </div>
   );
 }
