@@ -23,7 +23,7 @@ function App() {
 
   const handleButton2Click = () => {
     console.log("Button2 clicked");
-    setShowAlert(true);
+    setShowAlert((prevState) => !prevState);
   }
 
   const [showAlert, setShowAlert] = useState(false);
