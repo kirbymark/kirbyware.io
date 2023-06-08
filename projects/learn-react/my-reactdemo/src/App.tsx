@@ -25,6 +25,11 @@ function App() {
     console.log("Button2 clicked");
     setShowAlert((prevState) => !prevState);
   }
+  
+  const handleAlertDismissed = () => {
+    console.log("Alert dismissed");
+    setShowAlert((prevState) => !prevState);
+  }
 
   const [showAlert, setShowAlert] = useState(false);
 
@@ -93,7 +98,7 @@ function App() {
         <Chip label="Button and Alert" />
       </Divider>
 
-      {showAlert && (<Alert dismissible={true}>my alert</Alert>)}
+      {showAlert && (<Alert dismissible={true} onDismissed={handleAlertDismissed}>my alert</Alert>)}
       <Button type="primary" onButtonClicked={handleButton2Click}>
         Primary
       </Button>

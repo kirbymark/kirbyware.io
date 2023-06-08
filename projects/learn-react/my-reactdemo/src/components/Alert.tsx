@@ -4,9 +4,10 @@ import { useState } from "react";
 interface Props {
     children: ReactNode;
     dismissible?: boolean;
+    onDismissed: () => void;
 }
 
-const Alert = ({ children, dismissible = false }: Props) => {
+const Alert = ({ children, dismissible = false, onDismissed }: Props) => {
   const [show, setShow] = useState(true);
 
   return (
@@ -17,7 +18,11 @@ const Alert = ({ children, dismissible = false }: Props) => {
                         type="button" 
                         className="btn-close" 
                         data-bs-dismiss="alert" 
-                        onClick={() => setShow(false)}
+                        onClick={() => {
+                          setShow(false);
+                          onDismissed();
+                        }}
+
                         aria-label="Close">
                         </button>)
       }
