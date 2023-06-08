@@ -1,11 +1,7 @@
-import { useState } from "react";
-import Alert from "./Alert";
-
 interface Props {
   children: string;
-  color?:  "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark" | "link";
+  type?:  "primary" | "secondary" | "success" | "danger" | "warning" | "info" | "light" | "dark" | "link";
   onButtonClicked: () => void;
-  type?: "alert" | "default";
 }
 
 const addedClasses: { [key: string]: string } = {
@@ -20,32 +16,12 @@ const addedClasses: { [key: string]: string } = {
   link: "btn btn-link",
 };
 
-function Button ({ children, color = "primary", type = "default", onButtonClicked }: Props) {
-  const [alertVisible, setAlertVisible] = useState(false);
-
-  if (type === "alert")
-  return (
-    <>
-        {(alertVisible && <Alert dismissible={true}>Alert pop-up from Button</Alert>)}
-        <button
-        type="button"
-        //   className={addedClasses[type]}
-        className={"btn btn-" + color}
-        onClick={() => {
-            setAlertVisible(true);
-            onButtonClicked();
-        }}
-        >
-        {children}
-        </button>
-    </>
-  )
-  else
+const Button = ({ children, type = "primary", onButtonClicked }: Props) => {
   return (
     <button
       type="button"
     //   className={addedClasses[type]}
-      className={"btn btn-" + color}
+      className={"btn btn-" + type}
       onClick={onButtonClicked}
     >
       {children}

@@ -6,28 +6,24 @@ interface Props {
     dismissible?: boolean;
 }
 
-const Alert = ({ children, dismissible=false }: Props) => {
-    const [alertVisible, setAlertVisible] = useState(true);
-  
-  if (dismissible) 
-    if (alertVisible)   
-        return (
-            <div className="alert alert-warning alert-dismissible fade show" role="alert" >
-                {children}
-                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => setAlertVisible(false)}></button>
-            </div>
-        );
-    else 
-        return (
-            <div className="alert alert-warning alert-dismissible fade" role="alert" >
-                {children}
-                <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() => setAlertVisible(true)}></button>
-            </div>
-        );
-  else
-    return (
-        <div className="alert alert-primary">{children}</div> 
-    )
+const Alert = ({ children, dismissible = false }: Props) => {
+  const [show, setShow] = useState(true);
+
+  return (
+    <div className={"alert alert-primary" + (dismissible ? " alert-dismissible" : "") + " fade" + (show ? " show" : "") }>
+      {children}
+      {
+      dismissible && (<button 
+                        type="button" 
+                        className="btn-close" 
+                        data-bs-dismiss="alert" 
+                        onClick={() => setShow(false)}
+                        aria-label="Close">
+                        </button>)
+      }
+
+    </div>
+  )
 }
 
 export default Alert

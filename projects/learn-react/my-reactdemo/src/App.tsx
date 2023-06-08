@@ -2,6 +2,7 @@ import ListGroup from "./components/ListGroup";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
 import { Divider, Chip, Box } from "@mui/material";
+import { useState } from "react";
 
 function App() {
   let items = [
@@ -20,9 +21,12 @@ function App() {
     console.log("Button clicked");
   }
 
-  const handleAlertButtonClick = () => {
-    console.log("Button clicked for alert");
+  const handleButton2Click = () => {
+    console.log("Button2 clicked");
+    setShowAlert(true);
   }
+
+  const [showAlert, setShowAlert] = useState(false);
 
   return (
     <div>
@@ -55,42 +59,46 @@ function App() {
       <Divider role="presentation">
         <Chip label="Alert" />
       </Divider>
-      <Alert dismissible={false}> 
+      <Alert> 
         Hello - 
         <span>This is an alert</span>
       </Alert>
 
-      <Box
-        sx={{
-          width: "100%",
-          height: 30,
-        }}
-      />
-
       <Divider role="presentation">
         <Chip label="Button" />
       </Divider>
-      <Button color="secondary" type="default" onButtonClicked={handleButtonClick}>
-        Secondary
+      <Button onButtonClicked={handleButtonClick}>
+        Default is Primary
       </Button>
-      <Button color="dark" type="default" onButtonClicked={handleButtonClick}>
-        Dark
+      <Button type="secondary" ButtonClicked={handleButtonClick}>
+        Secondary Button
+      </Button>
+      <Button type="link" onButtonClicked={handleButtonClick}>
+        Link Button
+      </Button>
+      <Button type="dark" onButtonClicked={handleButtonClick}>
+        Dark Button
       </Button>
 
-
+      
       <Box
         sx={{
           width: "100%",
           height: 30,
         }}
       />
-      
+
+
       <Divider role="presentation">
-        <Chip label="Button with Alert" />
+        <Chip label="Button and Alert" />
       </Divider>
-      <Button type="alert" onButtonClicked={handleAlertButtonClick}>
-        Alert Button
+
+      {showAlert && (<Alert dismissible={true}>my alert</Alert>)}
+      <Button type="primary" onButtonClicked={handleButton2Click}>
+        Primary
       </Button>
+
+
     </div>
   );
 }
